@@ -23,23 +23,119 @@ import { Link, useNavigate } from "react-router-dom";
 import { DUMMY_EMAIL, DUMMY_PASSWORD } from "../db/dummyData";
 
 const Login = () => {
-    
   const navigate = useNavigate();
 
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
-  const [showPassword, setShowPassword] = useState(false)
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   const onEmailInputChange = (e) => {
     setEmail(e.target.value);
-  }
+  };
 
   const onPawwsordInputChange = (e) => {
-    setPassword(e.target.value)
-  }
+    setPassword(e.target.value);
+  };
 
   const onShowEyeClick = () => {
-    setShowPassword(prev => !prev)
+    setShowPassword((prev) => !prev);
+  };
+
+  const handleLogin = async () => {
+    setError("");
+
+    const cleanEmail = email.trim().toLowerCase();
+
+    if (!cleanEmail) {
+      setError("Please enter your email address");
+
+      return;
+    }
+
+    if (!password) {
+      setError("Please enter your password");
+
+      return;
+    }
+
+    // Dummy Login Credintial Email and Password
+
+    if (cleanEmail === DUMMY_EMAIL && DUMMY_PASSWORD) {
+      setLoading(true);
+
+      // Login without firebase user
+
+      try {
+        if (auth.currentUser) {
+          await auth.signOut();
+        }
+      } catch (error) {
+        console.error(error);
+      }
+
+      localStorage.setItem("smarthaven_dummy_user", "true");
+
+      window.dispatchEvent(new Event("smarthaven_dummy_user"));
+
+      setTimeout(() => {
+        setLoading(false);
+        navigate("/dashboard", {
+          replace: true,
+        });
+      }, 500);
+
+      return;
+    }
+
+    // Login with firebase user
+
+    try {
+      setLoading(true);
+
+      localStorage.removeItem("smarthaven_dummy_user");
+
+      window.dispatchEvent(new Event("smarthaven-dummy-logout"));
+
+      await signInWithEmailAndPassword(auth, cleanEmail, password);
+
+      navigate("/dashboard", {
+        replace: true,
+      });
+    } catch (error) {
+      console.error("Login Error", error);
+
+      switch (error?.code) {
+        case "auth/user-not-found":
+          setError("User not found.");
+          break;
+
+        case "auth/wrong-password":
+        case "auth/invalid-credential":
+          setEmail("Incorrect email or password.");
+          break;
+
+        case "auth/invalid-email":
+          setError("Invalid email address.");
+          break;
+
+        case "auth/too-many-requests":
+          setError("Too many attempts. Please try again later.");
+          break;
+
+        default:
+          setError("Login failed. Please try again.");
+      }
+    }finally{
+        setLoading(false)
+    }
+  };
+
+  const handleKeyDownOrPressEnter = (e) => {
+    if(e.key === 'Enter'){
+        handleLogin();
+    }
   }
 
   return (
@@ -185,7 +281,11 @@ const Login = () => {
                 <input
                   type="email"
                   value={email}
-                  onChange={onEmailInputChange}
+                  onChange={(e) => {
+                    onEmailInputChange(e);
+                    setError("");
+                  }}
+                  onKeyDown={handleKeyDownOrPressEnter}
                   placeholder="Enter your email"
                   autoComplete="email"
                   className="w-full h-13.5 pl-12 pr-4 rounded-xl border border-[#dbe4f1] bg-white text-sm text-slate-800 outline-none placeholder:text-[#9aa7bc] focus:border-blue-400 focus:ring-4 focus:ring-blue-100 transition"
@@ -207,9 +307,13 @@ const Login = () => {
                 />
 
                 <input
-                  type={showPassword ? 'text' : 'password'}
+                  type={showPassword ? "text" : "password"}
                   value={password}
-                  onChange={onPawwsordInputChange}
+                  onChange={(e) => {
+                    onPawwsordInputChange(e);
+                    setError("");
+                  }}
+                  onKeyDown={handleKeyDownOrPressEnter}
                   placeholder="Enter your password"
                   autoComplete="current-password"
                   className="w-full h-13.5 pl-12 pr-12 rounded-xl border border-[#dbe4f1] bg-white text-sm text-slate-800 outline-none placeholder:text-[#9aa7bc] focus:border-blue-400 focus:ring-4 focus:ring-blue-100 transition"
@@ -220,10 +324,7 @@ const Login = () => {
                   onClick={onShowEyeClick}
                   className="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-lg flex items-center justify-center text-[#8997b4] hover:bg-blue-50 hover:text-blue-600 border-none cursor-pointer transition"
                 >
-                  {
-                    showPassword ? <EyeOff size={19} /> : <Eye  size={19} />
-                    
-                  } 
+                  {showPassword ? <EyeOff size={19} /> : <Eye size={19} />}
                 </button>
               </div>
             </div>
@@ -231,6 +332,7 @@ const Login = () => {
             {/* Sign In */}
 
             <button
+              onClick={handleLogin}
               type="button"
               className="group w-full h-13.5 rounded-xl border-none bg-linear-to-r from-[#3578f6] to-[#3471eb] text-white font-semibold flex items-center justify-center gap-2 shadow-[0_8px_20px_rgba(52,113,235,0.20)] hover:from-[#2869e5] hover:to-[#2d63d4] active:scale-[0.99] cursor-pointer transition"
             >
