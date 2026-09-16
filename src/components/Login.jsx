@@ -1,16 +1,6 @@
 import { useState } from "react";
 
-import {
-  Eye,
-  EyeOff,
-  LockKeyhole,
-  Mail,
-  ShieldCheck,
-  Wind,
-  Leaf,
-  ChevronRight,
-  Home,
-} from "lucide-react";
+import { Eye, EyeOff, LockKeyhole, Mail, ShieldCheck, Wind, Leaf, ChevronRight, Home, } from "lucide-react";
 
 import backgroundIMG from "../assets/LoginBG.png";
 import backgroundIMG2 from "../assets/LoginBG2.png";
@@ -62,7 +52,8 @@ const Login = () => {
 
     // Dummy Login Credintial Email and Password
 
-    if (cleanEmail === DUMMY_EMAIL && DUMMY_PASSWORD) {
+    if (cleanEmail === DUMMY_EMAIL.trim().toLowerCase() && password === DUMMY_PASSWORD) {
+      
       setLoading(true);
 
       // Login without firebase user
@@ -103,7 +94,9 @@ const Login = () => {
       navigate("/dashboard", {
         replace: true,
       });
+
     } catch (error) {
+
       console.error("Login Error", error);
 
       switch (error?.code) {
@@ -113,7 +106,7 @@ const Login = () => {
 
         case "auth/wrong-password":
         case "auth/invalid-credential":
-          setEmail("Incorrect email or password.");
+          setError("Incorrect email or password.");
           break;
 
         case "auth/invalid-email":
@@ -127,6 +120,7 @@ const Login = () => {
         default:
           setError("Login failed. Please try again.");
       }
+
     }finally{
         setLoading(false)
     }
@@ -184,8 +178,6 @@ const Login = () => {
             ones safe with intelligent air quality monitoring.
           </p>
         </div>
-
-        {/* Illustration */}
 
         {/* Illustration */}
 
@@ -417,3 +409,6 @@ const Login = () => {
 };
 
 export default Login;
+
+
+
