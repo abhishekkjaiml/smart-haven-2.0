@@ -7,6 +7,7 @@ import DashboardPage from './pages/DashboardPage'
 const App = () => {
   return (
     <div>
+      <Sidebar />
       <Routes>
         <Route  path='/auth/login'  element={<LoginPage />} />
         <Route  path='/dashboard' element={<DashboardPage />}  />

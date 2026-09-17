@@ -708,7 +708,7 @@ const Dashboard = ({ isDummyUser = false }) => {
         ========================================================= */}
 
         {!deviceClaimed && (
-          <section className="px-4 sm:px-6 lg:px-8 mt-7">
+          <section className="px-4 sm:px-6 lg:px-8 mt-7 pb-7 ">
             <div
               className={`relative overflow-hidden min-h-50 rounded-[26px] border flex flex-col sm:flex-row items-start sm:items-center gap-5 px-5 sm:px-8 py-7 shadow-[0_6px_25px_rgba(36,68,120,0.05)] ${
                 darkMode
