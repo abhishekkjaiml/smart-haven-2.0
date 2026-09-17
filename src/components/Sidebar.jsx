@@ -7,6 +7,7 @@ import useAuth from "../hooks/useAuth";
 const Sidebar = ({ isOpen, onToggle, isMobile }) => {
 
   const {logout} = useAuth()
+  
   const menuItems = [
     {
       name: "Dashboard",

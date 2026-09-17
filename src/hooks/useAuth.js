@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../services/firebase";
 import { signOut } from "firebase/auth";
 
 const useAuth = () => {
+
+  const navigate = useNavigate()
     
   const myDummyUser = localStorage.getItem("smarthaven_dummy_user");
 
@@ -64,6 +67,11 @@ const useAuth = () => {
       window.dispatchEvent(
         new Event('smarthaven-dummy-logout')
       )
+
+      navigate('/auth/login', {
+        replace: true
+      })
+
     } catch (error) {
       console.error('Logout Error:', error)
     }

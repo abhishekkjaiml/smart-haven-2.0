@@ -1,6 +1,18 @@
 import { useState } from "react";
 
-import { Eye, EyeOff, LockKeyhole, Mail, ShieldCheck, Wind, Leaf, ChevronRight, Home, } from "lucide-react";
+import {
+  Eye,
+  EyeOff,
+  LockKeyhole,
+  Mail,
+  ShieldCheck,
+  Wind,
+  Leaf,
+  ChevronRight,
+  Home,
+  Copy,
+  Check,
+} from "lucide-react";
 
 import backgroundIMG from "../assets/LoginBG.png";
 import backgroundIMG2 from "../assets/LoginBG2.png";
@@ -11,6 +23,7 @@ import { auth } from "../services/firebase";
 import { Link, useNavigate } from "react-router-dom";
 
 import { DUMMY_EMAIL, DUMMY_PASSWORD } from "../db/dummyData";
+import { field } from "firebase/firestore/pipelines";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -20,6 +33,7 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [copiedField, setCopiedField] = useState("");
 
   const onEmailInputChange = (e) => {
     setEmail(e.target.value);
@@ -52,8 +66,10 @@ const Login = () => {
 
     // Dummy Login Credintial Email and Password
 
-    if (cleanEmail === DUMMY_EMAIL.trim().toLowerCase() && password === DUMMY_PASSWORD) {
-      
+    if (
+      cleanEmail === DUMMY_EMAIL.trim().toLowerCase() &&
+      password === DUMMY_PASSWORD
+    ) {
       setLoading(true);
 
       // Login without firebase user
@@ -94,9 +110,7 @@ const Login = () => {
       navigate("/dashboard", {
         replace: true,
       });
-
     } catch (error) {
-
       console.error("Login Error", error);
 
       switch (error?.code) {
@@ -120,17 +134,48 @@ const Login = () => {
         default:
           setError("Login failed. Please try again.");
       }
-
-    }finally{
-        setLoading(false)
+    } finally {
+      setLoading(false);
     }
   };
 
   const handleKeyDownOrPressEnter = (e) => {
-    if(e.key === 'Enter'){
-        handleLogin();
+    if (e.key === "Enter") {
+      handleLogin();
     }
-  }
+  };
+
+  const handleCopy = async (value, field) => {
+    try {
+      if(navigator?.clipboard?.writeText){
+        await navigator.clipboard.writeText(value);
+      }else{
+        const textArea = document.createElement('textarea');
+
+        textArea.value = value;
+        textArea.style.position = 'fixed';
+        textArea.style.left = '-9999px';
+        textArea.style.top = '-9999px';
+
+        document.body.appendChild(textArea);
+
+        textArea.focus();
+        textArea.select();
+
+        document.execCommand('copy');
+
+        document.body.removeChild(textArea);
+      }
+
+      setCopiedField(field);
+
+      setTimeout(() => {
+        setCopiedField('')
+      }, 1500)
+    } catch (error) {
+      console.error("Copy failed", error);
+    }
+  };
 
   return (
     <div className="min-h-screen w-full bg-[#f5f8fc] flex">
@@ -342,7 +387,7 @@ const Login = () => {
             <p className="m-0 text-sm text-[#7180a0]">
               Don't have an account?{" "}
               <Link
-                to="/signup"
+                to="/auth/signup"
                 className="font-semibold text-blue-600 hover:text-blue-700 transition-colors"
               >
                 Create an account
@@ -371,27 +416,76 @@ const Login = () => {
 
             <div className="space-y-2">
               <div className="flex items-center justify-between gap-3">
-                <p className="m-0 text-[10px] text-slate-500">Email</p>
+                <p className="m-0 text-[10px] text-slate-500 shrink-0">Email</p>
 
-                <p className="m-0 text-[10px] font-semibold text-slate-700 truncate">
-                  {DUMMY_EMAIL}
-                </p>
+                <div className="flex items-center gap-2 min-w-0">
+                  <p className="m-0 text-[10px] font-semibold text-slate-700 truncate">
+                    {DUMMY_EMAIL}
+                  </p>
+
+                  <button
+                    type="button"
+                    onClick={() => handleCopy(DUMMY_EMAIL, "email")}
+                    title="Copy email"
+                    className="shrink-0 w-7 h-7 rounded-lg flex items-center justify-center border border-blue-100 bg-white text-blue-500 hover:bg-blue-50 hover:text-blue-600 cursor-pointer transition"
+                  >
+                    {copiedField === "email" ? (
+                      <Check size={13} className="text-emerald-500" />
+                    ) : (
+                      <Copy size={13} />
+                    )}
+                  </button>
+                </div>
               </div>
 
               <div className="flex items-center justify-between gap-3">
-                <p className="m-0 text-[10px] text-slate-500">Password</p>
-
-                <p className="m-0 text-[10px] font-semibold text-slate-700">
-                  {DUMMY_PASSWORD}
+                <p className="m-0 text-[10px] text-slate-500 shrink-0">
+                  Password
                 </p>
+
+                <div className="flex items-center gap-2">
+                  <p className="m-0 text-[10px] font-semibold text-slate-700">
+                    {DUMMY_PASSWORD}
+                  </p>
+
+                  <button
+                    type="button"
+                    onClick={() => handleCopy(DUMMY_PASSWORD, "password")}
+                    title="Copy password"
+                    className="shrink-0 w-7 h-7 rounded-lg flex items-center justify-center border border-blue-100 bg-white text-blue-500 hover:bg-blue-50 hover:text-blue-600 cursor-pointer transition"
+                  >
+                    {copiedField === "password" ? (
+                      <Check size={13} className="text-emerald-500" />
+                    ) : (
+                      <Copy size={13} />
+                    )}
+                  </button>
+                </div>
               </div>
 
               <div className="flex items-center justify-between gap-3">
-                <p className="m-0 text-[10px] text-slate-500">Demo Device</p>
-
-                <p className="m-0 text-[10px] font-semibold text-blue-600">
-                  SH-ESP32-001
+                <p className="m-0 text-[10px] text-slate-500 shrink-0">
+                  Demo Device
                 </p>
+
+                <div className="flex items-center gap-2">
+                  <p className="m-0 text-[10px] font-semibold text-blue-600">
+                    SH-ESP32-001
+                  </p>
+
+                  <button
+                    type="button"
+                    onClick={() => handleCopy("SH-ESP32-001", "device")}
+                    title="Copy device ID"
+                    className="shrink-0 w-7 h-7 rounded-lg flex items-center justify-center border border-blue-100 bg-white text-blue-500 hover:bg-blue-50 hover:text-blue-600 cursor-pointer transition"
+                  >
+                    {copiedField === "device" ? (
+                      <Check size={13} className="text-emerald-500" />
+                    ) : (
+                      <Copy size={13} />
+                    )}
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -409,6 +503,3 @@ const Login = () => {
 };
 
 export default Login;
-
-
-
