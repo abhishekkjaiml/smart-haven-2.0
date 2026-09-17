@@ -7,22 +7,34 @@ import { DUMMY_DEVICE_ID, dummySensorData } from "../db/dummyData";
 import { useOutletContext } from "react-router-dom";
 
 const useDashboard = ({ isDummyUser = false }) => {
-
   const { onMenuClick } = useOutletContext();
 
-  const [deviceId, setDeviceId] = useState("");
-  const [data, setData] = useState({});
+  const [deviceId, setDeviceId] = useState(
+    localStorage.getItem("smarthaven_device_id") || "",
+  );
+  const [data, setData] = useState(() => {
+    try {
+      return JSON.parse(localStorage.getItem("smarthaven_sensor_data") || "{}");
+    } catch {
+      return {};
+    }
+  });
   const [loading, setLoading] = useState(false);
   const [darkMode, setDarkMode] = useState(false);
-  const [deviceClaimed, setDeviceClaimed] = useState(false);
-  const [claimedDeviceId, setClaimedDeviceId] = useState("");
+  const [deviceClaimed, setDeviceClaimed] = useState(
+    Boolean(localStorage.getItem("smarthaven_device_id")),
+  );
+  const [claimedDeviceId, setClaimedDeviceId] = useState(
+    localStorage.getItem("smarthaven_device_id") || "",
+  );
   const [lastUpdated, setLastUpdated] = useState("--:--:--");
 
   const [alertData, setAlertData] = useState(null);
 
   const dummyInterval = useRef(null);
 
-  const isDemo = isDummyUser || localStorage.getItem("smarthaven_dummy_user") === "true";
+  const isDemo =
+    isDummyUser || localStorage.getItem("smarthaven_dummy_user") === "true";
 
   // Update last updated time
 
@@ -58,6 +70,16 @@ const useDashboard = ({ isDummyUser = false }) => {
     setDeviceClaimed(true);
     setClaimedDeviceId(DUMMY_DEVICE_ID);
 
+    localStorage.setItem(
+      'smarthaven_device_id',
+      DUMMY_DEVICE_ID,
+    )
+
+    localStorage.setItem(
+      'smarthaven_sensor_data',
+      JSON.stringify(currentData)
+    )
+
     updateTime();
 
     dummyInterval.current = setInterval(() => {
@@ -68,12 +90,21 @@ const useDashboard = ({ isDummyUser = false }) => {
         return Number(Math.min(max, Math.max(min, nextValue)).toFixed(1));
       };
 
-      currentData = { 
-        
-        temperature: randomValue( currentData.temperature ?? dummySensorData.temperature, 20, 35, 1.5, ),
+      currentData = {
+        temperature: randomValue(
+          currentData.temperature ?? dummySensorData.temperature,
+          20,
+          35,
+          1.5,
+        ),
 
         humidity: Math.round(
-          randomValue( currentData.humidity ?? dummySensorData.humidity, 35, 80, 5, ),
+          randomValue(
+            currentData.humidity ?? dummySensorData.humidity,
+            35,
+            80,
+            5,
+          ),
         ),
 
         h2_ppm: Math.round(
@@ -94,6 +125,11 @@ const useDashboard = ({ isDummyUser = false }) => {
       };
 
       setData(currentData);
+
+      localStorage.setItem(
+        'smarthaven_sensor_data',
+        JSON.stringify(currentData),
+      )
       updateTime();
     }, 2000);
   };
@@ -104,6 +140,38 @@ const useDashboard = ({ isDummyUser = false }) => {
     return () => {
       stopDummyData();
       socket.removeAllListeners();
+    };
+  }, []);
+
+  useEffect(() => {
+    const savedDeviceId = localStorage.getItem("smarthaven_device_id");
+
+    if (!savedDeviceId) {
+      return;
+    }
+
+    setDeviceId(savedDeviceId);
+    setClaimedDeviceId(savedDeviceId);
+    setDeviceClaimed(true);
+
+    socket.off(`update-${savedDeviceId}`);
+    socket.on(`update-${savedDeviceId}`, (sensorData) => {
+      if (!sensorData) {
+        return;
+      }
+
+      setData(sensorData);
+
+      localStorage.setItem(
+        "smarthaven_sensor_data",
+        JSON.stringify(sensorData),
+      );
+
+      updateTime();
+    });
+
+    return () => {
+      socket.off(`update-${savedDeviceId}`);
     };
   }, []);
 
@@ -260,6 +328,8 @@ const useDashboard = ({ isDummyUser = false }) => {
       setClaimedDeviceId(enteredId);
       setDeviceId(enteredId);
 
+      localStorage.setItem("smarthaven_device_id", enteredId);
+
       socket.off(`update-${enteredId}`);
 
       socket.on(`update-${enteredId}`, (sensorData) => {
@@ -268,6 +338,11 @@ const useDashboard = ({ isDummyUser = false }) => {
         }
 
         setData(sensorData);
+
+        localStorage.setItem(
+          "smarthaven_sensor_data",
+          JSON.stringify(sensorData),
+        );
         updateTime();
       });
 
@@ -302,6 +377,21 @@ const useDashboard = ({ isDummyUser = false }) => {
 
   const userInitial = userName.charAt(0).toUpperCase();
 
+  const clearDevice = () => {
+    stopDummyData();
+
+    socket.removeAllListeners();
+
+    setDeviceId("");
+    setDeviceClaimed(false);
+    setClaimedDeviceId("");
+    setData({});
+    setLastUpdated("--:--:--");
+
+    localStorage.removeItem("smarthaven_device_id");
+    localStorage.removeItem("smarthaven_sensor_data");
+  };
+
   return {
     onMenuClick,
 
@@ -327,6 +417,8 @@ const useDashboard = ({ isDummyUser = false }) => {
 
     startDummyData,
     stopDummyData,
+
+    clearDevice,
   };
 };
 

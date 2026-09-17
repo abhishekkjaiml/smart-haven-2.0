@@ -40,6 +40,7 @@ const DashboardPage = ({ isDummyUser = false }) => {
           isDemo={dashboard.isDemo}
           handleDeviceChange={dashboard.handleDeviceChange}
           claimDevice={dashboard.claimDevice}
+          clearDevice={dashboard.clearDevice}
         />
 
         {/* Sensor Data */}
