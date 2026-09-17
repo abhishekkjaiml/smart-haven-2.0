@@ -6,7 +6,7 @@ import SensorDataCard from "../components/dashboard/SensorDataCard";
 import HealthMessage from "../components/dashboard/HealthMessage";
 import AlertModal from "../components/dashboard/AlertModal";
 
-const DashboardPage = ({ isDummyUser = false }) => {
+const DashboardPage = ({ isDummyUser = false, logout, }) => {
   const dashboard = useDashboard({
     isDummyUser,
   });

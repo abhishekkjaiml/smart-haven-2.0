@@ -2,7 +2,11 @@ import { LayoutDashboard, Settings,  LogOut, Grid2X2, Menu, X, Home, } from "luc
 
 import { NavLink } from "react-router-dom";
 
+import useAuth from "../hooks/useAuth";
+
 const Sidebar = ({ isOpen, onToggle, isMobile }) => {
+
+  const {logout} = useAuth()
   const menuItems = [
     {
       name: "Dashboard",
@@ -120,6 +124,7 @@ const Sidebar = ({ isOpen, onToggle, isMobile }) => {
         >
           <button
             type="button"
+            onClick={logout}
             className={`
               h-11 rounded-xl text-red-500 hover:bg-red-50 transition cursor-pointer flex items-center gap-3
               ${isOpen ? "px-4" : "justify-center"}  

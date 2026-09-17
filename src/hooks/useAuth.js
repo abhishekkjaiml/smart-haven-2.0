@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../services/firebase";
+import { signOut } from "firebase/auth";
 
 const useAuth = () => {
     
@@ -48,11 +49,32 @@ const useAuth = () => {
 
   const isLoggedIn = Boolean(firebaseUser) || isDummyUser;
 
+  // Logout
+
+  const logout = async () => {
+    try {
+      if(firebaseUser){
+        await signOut(auth)
+      }
+
+      localStorage.removeItem(
+        'smarthaven_dummy_user'
+      )
+
+      window.dispatchEvent(
+        new Event('smarthaven-dummy-logout')
+      )
+    } catch (error) {
+      console.error('Logout Error:', error)
+    }
+  }
+
   return {
     firebaseUser,
     isDummyUser,
     isLoggedIn,
     authLoading,
+    logout,
   };
 };
 

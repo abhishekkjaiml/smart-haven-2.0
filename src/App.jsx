@@ -13,7 +13,7 @@ import useAuth from "./hooks/useAuth";
 
 const App = () => {
 
-  const {isDummyUser, isLoggedIn, authLoading} = useAuth()
+  const {isDummyUser, isLoggedIn, authLoading, logout} = useAuth()
 
 
 
