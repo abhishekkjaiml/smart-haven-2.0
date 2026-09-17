@@ -1,4 +1,4 @@
-import { LayoutDashboard, Settings,  LogOut, Grid2X2, Menu, X, } from "lucide-react";
+import { LayoutDashboard, Settings,  LogOut, Grid2X2, Menu, X, Home, } from "lucide-react";
 
 import { NavLink } from "react-router-dom";
 
@@ -44,7 +44,7 @@ const Sidebar = ({ isOpen, onToggle, isMobile }) => {
           `}
         >
           <div className="w-11 h-11 shrink-0 rounded-xl bg-linear-to-br from-blue-600 to-cyan-500 flex items-center justify-center text-white shadow-md">
-            <Grid2X2 size={23} />
+            <Home size={23} />
           </div>
 
           {isOpen && (
