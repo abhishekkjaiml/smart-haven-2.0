@@ -25,3 +25,7 @@ dist-ssr
 
 # Services
 src/services/
+
+# Environment Variable
+
+.env
