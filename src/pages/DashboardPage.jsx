@@ -19,15 +19,20 @@ import {
   AlertCircle,
   Info,
   X,
+  Menu,
 } from "lucide-react";
 
 import { auth } from "../services/firebase";
 import { socket, BACKEND_URL } from "../services/socket";
 import { DUMMY_DEVICE_ID, dummySensorData } from "../db/dummyData";
 
+import { useOutletContext } from "react-router-dom";
+
 import backgroundBG1 from "../assets/dashboardBG.png";
 
-const Dashboard = ({ isDummyUser = false }) => {
+const DashboardPage = ({ isDummyUser = false }) => {
+  const { onMenuClick } = useOutletContext();
+
   const [deviceId, setDeviceId] = useState("");
   const [data, setData] = useState({});
   const [loading, setLoading] = useState(false);
@@ -40,7 +45,8 @@ const Dashboard = ({ isDummyUser = false }) => {
 
   const dummyInterval = useRef(null);
 
-  const isDemo = isDummyUser || localStorage.getItem("smarthaven_dummy_user") === "true";
+  const isDemo =
+    isDummyUser || localStorage.getItem("smarthaven_dummy_user") === "true";
 
   // Update last updated time
   const updateTime = () => {
@@ -84,10 +90,20 @@ const Dashboard = ({ isDummyUser = false }) => {
       };
 
       currentData = {
-        temperature: randomValue( currentData.temperature ?? dummySensorData.temperature, 20, 35, 1.5, ),
+        temperature: randomValue(
+          currentData.temperature ?? dummySensorData.temperature,
+          20,
+          35,
+          1.5,
+        ),
 
-        humidity: Math.round( randomValue(
-          currentData.humidity ?? dummySensorData.humidity, 35, 80, 5, ),
+        humidity: Math.round(
+          randomValue(
+            currentData.humidity ?? dummySensorData.humidity,
+            35,
+            80,
+            5,
+          ),
         ),
 
         h2_ppm: Math.round(
@@ -395,6 +411,16 @@ const Dashboard = ({ isDummyUser = false }) => {
             {/* Welcome */}
 
             <div>
+              {/* Mobile Sidebar */}
+
+              <button
+                type="button"
+                onClick={onMenuClick}
+                className="md:hidden mb-4 w-10 h-10 rounded-xl bg-white border border-slate-200 flex items-center justify-center text-slate-600 hover:text-blue-600 hover:bg-blue-50 transition cursor-pointer"
+              >
+                <Menu size={21} />
+              </button>
+
               <div className="flex items-center gap-2 mb-1.5">
                 <span
                   className={`w-2 h-2 rounded-full ${
@@ -655,7 +681,7 @@ const Dashboard = ({ isDummyUser = false }) => {
                     type="button"
                     onClick={claimDevice}
                     disabled={loading}
-                    className="h-13 sm:w-47.5 px-6 rounded-[14px] border-none bg-linear-to-r from-[#3578f6] to-[#3471eb] text-white text-sm font-semibold flex items-center justify-center gap-2 shadow-[0_8px_20px_rgba(52,113,235,0.22)] hover:shadow-[0_10px_25px_rgba(52,113,235,0.30)] hover:from-[#2869e5] hover:to-[#2d63d4] disabled:opacity-60 disabled:cursor-not-allowed cursor-pointer transition-all duration-200 active:scale-[0.98]"
+                    className="h-13 sm:w-47.5 md:w-58.5 px-6 rounded-[14px] border-none bg-linear-to-r from-[#3578f6] to-[#3471eb] text-white text-sm font-semibold flex items-center justify-center gap-2 shadow-[0_8px_20px_rgba(52,113,235,0.22)] hover:shadow-[0_10px_25px_rgba(52,113,235,0.30)] hover:from-[#2869e5] hover:to-[#2d63d4] disabled:opacity-60 disabled:cursor-not-allowed cursor-pointer transition-all duration-200 active:scale-[0.98]"
                   >
                     {loading ? (
                       <>
@@ -1162,4 +1188,4 @@ const Dashboard = ({ isDummyUser = false }) => {
   );
 };
 
-export default Dashboard;
+export default DashboardPage;

@@ -1,19 +1,23 @@
-import React from 'react'
-import Sidebar from './components/Sidebar'
-import LoginPage from './pages/auth/LoginPage'
-import { Route, Routes } from 'react-router-dom'
-import DashboardPage from './pages/DashboardPage'
+import { Route, Routes } from "react-router-dom";
+
+import LoginPage from "./pages/auth/LoginPage";
+import SidebarLayout from "./layout/SidebarLayout";
+import RoomsPage from "./pages/RoomsPage";
+import SettingsPage from "./pages/SettingsPage";
+import DashboardPage from "./pages/DashboardPage";
 
 const App = () => {
   return (
-    <div>
-      <Sidebar />
-      <Routes>
-        <Route  path='/auth/login'  element={<LoginPage />} />
-        <Route  path='/dashboard' element={<DashboardPage />}  />
-      </Routes>
-    </div>
-  )
-}
+    <Routes>
+      <Route path="/auth/login" element={<LoginPage />} />
+      
+      <Route element={<SidebarLayout />}>
+        <Route path="/dashboard" element={<DashboardPage />} />
+        <Route path="/rooms" element={<RoomsPage />} />
+        <Route path="/settings" element={<SettingsPage />} />
+      </Route>
+    </Routes>
+  );
+};
 
-export default App
+export default App;
