@@ -1,10 +1,23 @@
 import { Frown, Mail, MapPin, Phone, User } from "lucide-react";
-import { dummySettings } from "../../db/dummyData";
+import { dummySettings, dummyProfileSettings } from "../../db/dummyData";
+// import {isDemo, current_username} from '../../hooks/UseSetting'
 import { useState } from "react";
 import { useTheme } from "../../context/theme-context";
+import { UseSetting } from "../../hooks/UseSetting";
 
-const ProfileSetting = ({ isDummyUser = false }) => {
+const ProfileSetting = () => {
   const [profile, setProfile] = useState(dummySettings.profile);
+
+  const {
+    user,
+    current_username,
+    isDemo,
+    userEmail,
+    contact_number,
+    profilePhoto,
+    userFirstName,
+    userLastName,
+  } = UseSetting();
 
   const { darkMode } = useTheme();
 
@@ -51,18 +64,33 @@ const ProfileSetting = ({ isDummyUser = false }) => {
       <div className="p-6">
         <div className="flex flex-col sm:flex-row items-center gap-5 mb-7">
           <div className="w-20 h-20 rounded-full bg-linear-to-br from-[#3949c9] to-[#2c3bb7] text-white flex items-center justify-center text-2xl font-bold shadow-md">
-            {profile.profileImg ? (
-              <img
-                src={profile.profileImg}
-                className="rounded-full p-0.5"
-                alt=""
-              />
-            ) : (
-              <div>
-                {profile.firstName.charAt(0)}
-                {profile.lastName.charAt(0)}
-              </div>
-            )}
+            {!isDemo &&
+              (profilePhoto ? (
+                <img
+                  src={profilePhoto}
+                  className="w-full h-full rounded-full object-cover p-0.5"
+                  alt="Profile"
+                />
+              ) : (
+                <div>
+                  {userFirstName.charAt(0)}
+                  {userLastName.charAt(0)}
+                </div>
+              ))}
+
+            {isDemo &&
+              (profile.profileImg ? (
+                <img
+                  src={profile.profileImg}
+                  className="w-full h-full rounded-full object-cover p-0.5"
+                  alt="Profile"
+                />
+              ) : (
+                <div>
+                  {profile.firstName.charAt(0)}
+                  {profile.lastName.charAt(0)}
+                </div>
+              ))}
           </div>
 
           <div className="text-center sm:text-left">
@@ -71,7 +99,9 @@ const ProfileSetting = ({ isDummyUser = false }) => {
                 darkMode ? "text-white" : "text-[#101936]"
               }`}
             >
-              {profile.displayName}
+              {/* {profile.displayName} */}
+
+              {isDemo ? profile.displayName : current_username}
             </h3>
 
             <p
@@ -79,7 +109,7 @@ const ProfileSetting = ({ isDummyUser = false }) => {
                 darkMode ? "text-slate-500" : "text-[#7180a0]"
               }`}
             >
-              {isDummyUser ? "Demo Account" : "Firebase Account"}
+              {isDemo ? "Demo Account" : "Firebase Account"}
             </p>
           </div>
         </div>
@@ -106,7 +136,8 @@ const ProfileSetting = ({ isDummyUser = false }) => {
 
               <input
                 type="text"
-                value={profile.firstName}
+                value={`${isDemo ? profile.firstName : userFirstName}`}
+                readOnly
                 // onChange={}
                 className={`w-full h-12 pl-11 pr-4 rounded-xl border outline-none text-sm transition ${
                   darkMode
@@ -129,9 +160,10 @@ const ProfileSetting = ({ isDummyUser = false }) => {
             </label>
 
             <input
+              readOnly
               type="text"
-              value={profile.lastName}
-            //   onChange={}
+              value={`${isDemo ? profile.lastName : userLastName}`}
+              //   onChange={}
               className={`w-full h-12 px-4 rounded-xl border outline-none text-sm transition ${
                 darkMode
                   ? "bg-[#0b1220] border-white/10 text-white focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10"
@@ -161,7 +193,7 @@ const ProfileSetting = ({ isDummyUser = false }) => {
 
               <input
                 type="email"
-                value={profile.email}
+                value={`${isDemo && profile.email}`}
                 readOnly
                 className={`w-full h-12 pl-11 pr-4 rounded-xl border outline-none text-sm ${
                   darkMode
@@ -190,8 +222,9 @@ const ProfileSetting = ({ isDummyUser = false }) => {
               />
 
               <input
+                readOnly
                 type="text"
-                value={profile.phone}
+                value={`${isDemo ? profile.phone : contact_number}`}
                 // onChange={}
                 className={`w-full h-12 pl-11 pr-4 rounded-xl border outline-none text-sm transition ${darkMode ? "bg-[#0b1220] border-white/10 text-white focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10" : "bg-white border-slate-200 text-[#101936] focus:border-blue-400 focus:ring-4 focus:ring-blue-100"}`}
               />
@@ -218,6 +251,7 @@ const ProfileSetting = ({ isDummyUser = false }) => {
               />
 
               <input
+                readOnly
                 value={profile.location}
                 // onChange={}
                 className={`w-full h-12 pl-11 pr-4 rounded-xl border outline-none text-sm transition ${
@@ -232,25 +266,24 @@ const ProfileSetting = ({ isDummyUser = false }) => {
           {/* Timezone */}
 
           <div>
-                <label
-                    className={`block mb-2 text-xs font-semibold ${
-                  darkMode ? "text-slate-300" : "text-[#34415f]"
-                }`}
-                >
-                    Timezone
-                </label>
+            <label
+              className={`block mb-2 text-xs font-semibold ${
+                darkMode ? "text-slate-300" : "text-[#34415f]"
+              }`}
+            >
+              Timezone
+            </label>
 
-                <input
-                    value={profile.timezone}
-                    readOnly
-                className={`w-full h-12 px-4 rounded-xl border outline-none text-sm ${
-                  darkMode
-                    ? "bg-[#0b1220] border-white/10 text-slate-500"
-                    : "bg-slate-50 border-slate-200 text-slate-500"
-                }`}
-                />
+            <input
+              value={profile.timezone}
+              readOnly
+              className={`w-full h-12 px-4 rounded-xl border outline-none text-sm ${
+                darkMode
+                  ? "bg-[#0b1220] border-white/10 text-slate-500"
+                  : "bg-slate-50 border-slate-200 text-slate-500"
+              }`}
+            />
           </div>
-
         </div>
       </div>
     </div>
