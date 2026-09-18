@@ -11,6 +11,7 @@ import DashboardPage from "./pages/DashboardPage";
 
 import useAuth from "./hooks/useAuth";
 import TermsConditionPage from "./pages/TermsConditionPage";
+import PrivacyPolicyPage from "./pages/PrivacyPolicyPage";
 
 const App = () => {
 
@@ -64,6 +65,8 @@ const App = () => {
       </Route>
 
       <Route  path="/terms" element={<TermsConditionPage />}  />
+      <Route  path="/privacy-policy" element={<PrivacyPolicyPage />}  />
+      
     </Routes>
   );
 };
