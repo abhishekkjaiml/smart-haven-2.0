@@ -6,6 +6,7 @@ import UnitsDisplaySetting from "../components/settings/UnitsDisplaySetting";
 import DeviceManagementSetting from "../components/settings/DeviceManagementSetting";
 import DataPrivacySetting from "../components/settings/DataPrivacySetting";
 import AboutSmartHavenSetting from "../components/settings/AboutSmartHavenSetting";
+import SecuritySetting from "../components/settings/SecuritySetting";
 
 const SettingsPage = () => {
   const { darkMode, toggleTheme } = useTheme();
@@ -76,6 +77,10 @@ const SettingsPage = () => {
         {/* About SmartHaven */}
 
         <AboutSmartHavenSetting />
+
+        {/* Security Setting */}
+
+        <SecuritySetting />
 
         <div
           className={`mt-6 p-5 rounded-2xl border transition-colors duration-300 ${darkMode ? "bg-[#111c2e] border-white/10" : "bg-white border-slate-100"}`}
