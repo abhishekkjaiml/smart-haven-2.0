@@ -6,12 +6,15 @@ import { DUMMY_DEVICE_ID, dummySensorData } from "../db/dummyData";
 
 import { useOutletContext } from "react-router-dom";
 
+import { useTheme } from "../context/theme-context";
+
 const useDashboard = ({ isDummyUser = false }) => {
   const { onMenuClick } = useOutletContext();
 
   const [deviceId, setDeviceId] = useState(
     localStorage.getItem("smarthaven_device_id") || "",
   );
+
   const [data, setData] = useState(() => {
     try {
       return JSON.parse(localStorage.getItem("smarthaven_sensor_data") || "{}");
@@ -19,8 +22,8 @@ const useDashboard = ({ isDummyUser = false }) => {
       return {};
     }
   });
+
   const [loading, setLoading] = useState(false);
-  const [darkMode, setDarkMode] = useState(false);
   const [deviceClaimed, setDeviceClaimed] = useState(
     Boolean(localStorage.getItem("smarthaven_device_id")),
   );
@@ -30,6 +33,8 @@ const useDashboard = ({ isDummyUser = false }) => {
   const [lastUpdated, setLastUpdated] = useState("--:--:--");
 
   const [alertData, setAlertData] = useState(null);
+
+  const { darkMode, setDarkMode, toggleTheme } = useTheme();
 
   const dummyInterval = useRef(null);
 
