@@ -13,7 +13,8 @@ import {
   UserRound,
   CheckCircle2,
   Sparkles,
-  Activity,
+  Moon,
+  Sun,
 } from "lucide-react";
 
 import backgroundIMG2 from "../assets/LoginBG2.png";
@@ -24,8 +25,12 @@ import { auth } from "../services/firebase";
 
 import { Link, useNavigate } from "react-router-dom";
 
+import { useTheme } from "../context/theme-context";
+
 const Signup = () => {
   const navigate = useNavigate();
+
+  const { darkMode, setDarkMode } = useTheme();
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -38,9 +43,14 @@ const Signup = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [agreeToTerms, setAgreeToTerms] = useState(false);
+
   // =========================================================
   // Input Handlers
   // =========================================================
+
+  const onUiModeBtnClick = () => {
+    setDarkMode((prev) => !prev);
+  };
 
   const onNameInputChange = (e) => {
     setName(e.target.value);
@@ -58,8 +68,9 @@ const Signup = () => {
     setConfirmPassword(e.target.value);
   };
 
-
+  // =========================================================
   // Password Toggle
+  // =========================================================
 
   const onShowPasswordClick = () => {
     setShowPassword((prev) => !prev);
@@ -69,8 +80,10 @@ const Signup = () => {
     setShowConfirmPassword((prev) => !prev);
   };
 
+  // =========================================================
   // Signup
-  
+  // =========================================================
+
   const handleSignup = async () => {
     setError("");
 
@@ -112,8 +125,9 @@ const Signup = () => {
       return;
     }
 
-
+    // =========================================================
     // Firebase Signup
+    // =========================================================
 
     try {
       setLoading(true);
@@ -128,7 +142,9 @@ const Signup = () => {
         password,
       );
 
+      // =========================================================
       // Update Firebase Profile
+      // =========================================================
 
       if (userCredential?.user) {
         await updateProfile(userCredential.user, {
@@ -139,7 +155,6 @@ const Signup = () => {
       navigate("/dashboard", {
         replace: true,
       });
-
     } catch (error) {
       console.error("Signup Error", error);
 
@@ -172,7 +187,9 @@ const Signup = () => {
     }
   };
 
+  // =========================================================
   // Enter Key
+  // =========================================================
 
   const handleKeyDownOrPressEnter = (e) => {
     if (e.key === "Enter") {
@@ -181,33 +198,67 @@ const Signup = () => {
   };
 
   return (
-    <div className="min-h-screen w-full bg-[#f5f8fc] flex">
+    <div
+      className={`min-h-screen w-full flex transition-colors duration-300 ${
+        darkMode ? "bg-[#0b1220]" : "bg-[#f5f8fc]"
+      }`}
+    >
       {/* =====================================================
           LEFT SECTION
       ===================================================== */}
 
-      <div className="hidden lg:flex lg:w-[55%] relative overflow-hidden bg-linear-to-br from-[#eaf4ff] via-[#f4f9ff] to-[#eef8f7] px-12 xl:px-20 py-10 flex-col">
+      <div
+        className={`hidden lg:flex lg:w-[55%] relative overflow-hidden px-12 xl:px-20 py-10 flex-col transition-colors duration-300 ${
+          darkMode
+            ? "bg-linear-to-br from-[#101c31] via-[#0d182a] to-[#102420]"
+            : "bg-linear-to-br from-[#eaf4ff] via-[#f4f9ff] to-[#eef8f7]"
+        }`}
+      >
         {/* Decorative Background */}
 
-        <div className="absolute -top-32 -left-32 w-100 h-100 rounded-full bg-blue-200/20 blur-3xl" />
+        <div
+          className={`absolute -top-32 -left-32 w-100 h-100 rounded-full blur-3xl ${
+            darkMode ? "bg-blue-500/10" : "bg-blue-200/20"
+          }`}
+        />
 
-        <div className="absolute -bottom-40 -right-32 w-112.5 h-112.5 rounded-full bg-emerald-200/20 blur-3xl" />
+        <div
+          className={`absolute -bottom-40 -right-32 w-112.5 h-112.5 rounded-full blur-3xl ${
+            darkMode ? "bg-emerald-500/10" : "bg-emerald-200/20"
+          }`}
+        />
 
-        <div className="absolute top-[35%] right-[8%] w-72 h-72 rounded-full bg-cyan-100/20 blur-3xl" />
+        <div
+          className={`absolute top-[35%] right-[8%] w-72 h-72 rounded-full blur-3xl ${
+            darkMode ? "bg-cyan-500/5" : "bg-cyan-100/20"
+          }`}
+        />
 
         {/* =====================================================
             Logo
         ===================================================== */}
 
         <div className="relative z-10 flex items-center gap-3">
-          <div className="w-11 h-11 rounded-xl bg-linear-to-br from-blue-600 to-cyan-500 flex items-center justify-center text-white shadow-lg shadow-blue-200">
+          <div className="w-11 h-11 rounded-xl bg-linear-to-br from-blue-600 to-cyan-500 flex items-center justify-center text-white shadow-lg shadow-blue-500/20">
             <Home size={24} strokeWidth={2.5} />
           </div>
 
           <div>
-            <h2 className="m-0 text-xl font-bold text-[#101936]">SmartHaven</h2>
+            <h2
+              className={`m-0 text-xl font-bold ${
+                darkMode ? "text-white" : "text-[#101936]"
+              }`}
+            >
+              SmartHaven
+            </h2>
 
-            <p className="m-0 text-xs text-[#7180a0]">Smart Home Monitoring</p>
+            <p
+              className={`m-0 text-xs ${
+                darkMode ? "text-slate-500" : "text-[#7180a0]"
+              }`}
+            >
+              Smart Home Monitoring
+            </p>
           </div>
         </div>
 
@@ -216,18 +267,32 @@ const Signup = () => {
         ===================================================== */}
 
         <div className="relative z-10 mt-20 max-w-142.5">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/80 border border-blue-100 text-blue-600 text-xs font-semibold mb-6 shadow-sm">
+          <div
+            className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full border text-xs font-semibold mb-6 shadow-sm ${
+              darkMode
+                ? "bg-white/5 border-white/10 text-blue-400"
+                : "bg-white/80 border-blue-100 text-blue-600"
+            }`}
+          >
             <Sparkles size={15} />
             Smart Environment
           </div>
 
-          <h1 className="m-0 text-[46px] xl:text-[54px] leading-[1.08] tracking-[-2px] font-bold text-[#101936]">
+          <h1
+            className={`m-0 text-[46px] xl:text-[54px] leading-[1.08] tracking-[-2px] font-bold ${
+              darkMode ? "text-white" : "text-[#101936]"
+            }`}
+          >
             Build a smarter
             <br />
-            home with <span className="text-blue-600">SmartHaven.</span>
+            home with <span className="text-blue-500">SmartHaven.</span>
           </h1>
 
-          <p className="m-0 mt-6 text-base leading-7 text-[#7180a0] max-w-125">
+          <p
+            className={`m-0 mt-6 text-base leading-7 max-w-125 ${
+              darkMode ? "text-slate-400" : "text-[#7180a0]"
+            }`}
+          >
             Create your account and start monitoring your home's environment in
             real-time with intelligent air quality insights.
           </p>
@@ -241,7 +306,11 @@ const Signup = () => {
           <img
             src={backgroundIMG2}
             alt="Smart Haven Environment"
-            className="w-125 max-w-full object-contain drop-shadow-[0_20px_35px_rgba(35,83,140,0.12)] rounded mb-5"
+            className={`w-125 max-w-full object-contain rounded mb-5 transition-all duration-300 ${
+              darkMode
+                ? "drop-shadow-[0_20px_35px_rgba(0,0,0,0.35)]"
+                : "drop-shadow-[0_20px_35px_rgba(35,83,140,0.12)]"
+            }`}
           />
         </div>
 
@@ -249,17 +318,33 @@ const Signup = () => {
             Bottom
         ===================================================== */}
 
-        <div className="relative z-10 flex items-center gap-3 text-sm text-[#7180a0]">
-          <div className="w-9 h-9 rounded-xl bg-white/80 flex items-center justify-center shadow-sm">
+        <div
+          className={`relative z-10 flex items-center gap-3 text-sm ${
+            darkMode ? "text-slate-400" : "text-[#7180a0]"
+          }`}
+        >
+          <div
+            className={`w-9 h-9 rounded-xl flex items-center justify-center shadow-sm ${
+              darkMode ? "bg-white/5" : "bg-white/80"
+            }`}
+          >
             <ShieldCheck size={18} className="text-emerald-500" />
           </div>
 
           <div>
-            <p className="m-0 text-xs font-semibold text-[#52617d]">
+            <p
+              className={`m-0 text-xs font-semibold ${
+                darkMode ? "text-slate-300" : "text-[#52617d]"
+              }`}
+            >
               Your home. Your health. Your data.
             </p>
 
-            <p className="m-0 mt-0.5 text-[10px] text-slate-400">
+            <p
+              className={`m-0 mt-0.5 text-[10px] ${
+                darkMode ? "text-slate-600" : "text-slate-400"
+              }`}
+            >
               Private & secure environmental monitoring
             </p>
           </div>
@@ -270,29 +355,98 @@ const Signup = () => {
           RIGHT SECTION
       ===================================================== */}
 
-      <div className="w-full lg:w-[45%] min-h-screen flex items-center justify-center px-5 sm:px-8 py-10 bg-white relative overflow-hidden">
+      <div
+        className={`w-full lg:w-[45%] min-h-screen flex items-center justify-center px-5 sm:px-8 py-10 relative overflow-hidden transition-colors duration-300 ${
+          darkMode ? "bg-[#0f1728]" : "bg-white"
+        }`}
+      >
         {/* Decorative Background */}
 
-        <div className="absolute -top-32 -right-32 w-90 h-90 rounded-full bg-blue-100/30 blur-3xl pointer-events-none" />
+        <div
+          className={`absolute -top-32 -right-32 w-90 h-90 rounded-full blur-3xl pointer-events-none ${
+            darkMode ? "bg-blue-500/5" : "bg-blue-100/30"
+          }`}
+        />
 
-        <div className="absolute -bottom-32 -left-32 w-80 h-80 rounded-full bg-cyan-100/20 blur-3xl pointer-events-none" />
+        <div
+          className={`absolute -bottom-32 -left-32 w-80 h-80 rounded-full blur-3xl pointer-events-none ${
+            darkMode ? "bg-cyan-500/5" : "bg-cyan-100/20"
+          }`}
+        />
 
-        <div className="relative z-10 w-full max-w-115">
+        <div className=" z-10 w-full max-w-115">
+          <div className="absolute top-6 right-6 z-20">
+            <button
+              type="button"
+              onClick={onUiModeBtnClick}
+              aria-label={
+                darkMode ? "Switch to light mode" : "Switch to dark mode"
+              }
+              className={`group relative flex items-center gap-2.5 w-34.5 h-11 px-2 rounded-full border shadow-sm cursor-pointer transition-all duration-300 ${
+                darkMode
+                  ? "bg-[#111c2e] border-white/10 shadow-blue-500/10"
+                  : "bg-white border-slate-200 shadow-slate-200/60"
+              }`}
+            >
+              {/* Sun */}
+              <div
+                className={`w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300 ${
+                  !darkMode
+                    ? "bg-amber-50 text-amber-500 shadow-sm"
+                    : "text-slate-500"
+                }`}
+              >
+                <Sun size={17} strokeWidth={2.3} />
+              </div>
+
+              {/* Toggle Track */}
+              <div
+                className={`relative w-10 h-5 rounded-full transition-all duration-300 ${
+                  darkMode
+                    ? "bg-blue-600 shadow-[0_0_12px_rgba(59,130,246,0.35)]"
+                    : "bg-slate-200"
+                }`}
+              >
+                <span
+                  className={`absolute top-0.5 w-4 h-4 rounded-full bg-white shadow-md transition-all duration-300 ${
+                    darkMode ? "left-5" : "left-0.5"
+                  }`}
+                />
+              </div>
+
+              {/* Moon */}
+              <div
+                className={`w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300 ${
+                  darkMode ? "bg-blue-500/10 text-blue-400" : "text-slate-400"
+                }`}
+              >
+                <Moon size={17} strokeWidth={2.3} />
+              </div>
+            </button>
+          </div>
           {/* =====================================================
               Mobile Logo
           ===================================================== */}
 
           <div className="lg:hidden flex items-center gap-3 mb-8">
-            <div className="w-11 h-11 rounded-xl bg-linear-to-br from-blue-600 to-cyan-500 flex items-center justify-center text-white shadow-lg shadow-blue-100">
+            <div className="w-11 h-11 rounded-xl bg-linear-to-br from-blue-600 to-cyan-500 flex items-center justify-center text-white shadow-lg shadow-blue-500/20">
               <Home size={24} strokeWidth={2.5} />
             </div>
 
             <div>
-              <h2 className="m-0 text-xl font-bold text-[#101936]">
+              <h2
+                className={`m-0 text-xl font-bold ${
+                  darkMode ? "text-white" : "text-[#101936]"
+                }`}
+              >
                 SmartHaven
               </h2>
 
-              <p className="m-0 text-xs text-[#7180a0]">
+              <p
+                className={`m-0 text-xs ${
+                  darkMode ? "text-slate-500" : "text-[#7180a0]"
+                }`}
+              >
                 Smart Home Monitoring
               </p>
             </div>
@@ -304,26 +458,45 @@ const Signup = () => {
 
           <div className="mb-6">
             <div className="flex items-center gap-2 mb-4">
-              <div className="w-8 h-8 rounded-lg bg-blue-50 flex items-center justify-center">
-                <Leaf size={15} className="text-blue-500" />
+              <div
+                className={`w-8 h-8 rounded-lg flex items-center justify-center ${
+                  darkMode ? "bg-blue-500/10" : "bg-blue-50"
+                }`}
+              >
+                <Leaf
+                  size={15}
+                  className={darkMode ? "text-blue-400" : "text-blue-500"}
+                />
               </div>
 
-              <span className="text-[10px] uppercase tracking-[1.5px] font-bold text-blue-600">
+              <span
+                className={`text-[10px] uppercase tracking-[1.5px] font-bold ${
+                  darkMode ? "text-blue-400" : "text-blue-600"
+                }`}
+              >
                 Smart Environment
               </span>
             </div>
 
-            <h1 className="m-0 text-[32px] sm:text-[36px] font-bold tracking-[-1px] text-[#101936]">
+            <h1
+              className={`m-0 text-[32px] sm:text-[36px] font-bold tracking-[-1px] ${
+                darkMode ? "text-white" : "text-[#101936]"
+              }`}
+            >
               Create your account
             </h1>
 
-            <p className="m-0 mt-2 text-sm sm:text-base text-[#7180a0]">
+            <p
+              className={`m-0 mt-2 text-sm sm:text-base ${
+                darkMode ? "text-slate-400" : "text-[#7180a0]"
+              }`}
+            >
               Join SmartHaven and start monitoring your home.
             </p>
           </div>
 
           {/* =====================================================
-              Form
+              FORM
           ===================================================== */}
 
           <div className="space-y-4">
@@ -332,14 +505,22 @@ const Signup = () => {
             =================================================== */}
 
             <div>
-              <label className="block mb-2 text-sm font-semibold text-[#34415f]">
+              <label
+                className={`block mb-2 text-sm font-semibold ${
+                  darkMode ? "text-slate-300" : "text-[#34415f]"
+                }`}
+              >
                 Full Name
               </label>
 
               <div className="relative group">
                 <UserRound
                   size={19}
-                  className="absolute left-4 top-1/2 -translate-y-1/2 text-[#8997b4] group-focus-within:text-blue-500 transition-colors"
+                  className={`absolute left-4 top-1/2 -translate-y-1/2 transition-colors ${
+                    darkMode
+                      ? "text-slate-500 group-focus-within:text-blue-400"
+                      : "text-[#8997b4] group-focus-within:text-blue-500"
+                  }`}
                 />
 
                 <input
@@ -352,7 +533,11 @@ const Signup = () => {
                   onKeyDown={handleKeyDownOrPressEnter}
                   placeholder="Enter your full name"
                   autoComplete="name"
-                  className="w-full h-13.5 pl-12 pr-4 rounded-xl border border-[#dbe4f1] bg-white text-sm text-slate-800 outline-none placeholder:text-[#9aa7bc] focus:border-blue-400 focus:ring-4 focus:ring-blue-100 transition"
+                  className={`w-full h-13.5 pl-12 pr-4 rounded-xl border text-sm outline-none transition ${
+                    darkMode
+                      ? "bg-[#111c2e] border-white/10 text-white placeholder:text-slate-600 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10"
+                      : "bg-white border-[#dbe4f1] text-slate-800 placeholder:text-[#9aa7bc] focus:border-blue-400 focus:ring-4 focus:ring-blue-100"
+                  }`}
                 />
               </div>
             </div>
@@ -362,14 +547,22 @@ const Signup = () => {
             =================================================== */}
 
             <div>
-              <label className="block mb-2 text-sm font-semibold text-[#34415f]">
+              <label
+                className={`block mb-2 text-sm font-semibold ${
+                  darkMode ? "text-slate-300" : "text-[#34415f]"
+                }`}
+              >
                 Email Address
               </label>
 
               <div className="relative group">
                 <Mail
                   size={19}
-                  className="absolute left-4 top-1/2 -translate-y-1/2 text-[#8997b4] group-focus-within:text-blue-500 transition-colors"
+                  className={`absolute left-4 top-1/2 -translate-y-1/2 transition-colors ${
+                    darkMode
+                      ? "text-slate-500 group-focus-within:text-blue-400"
+                      : "text-[#8997b4] group-focus-within:text-blue-500"
+                  }`}
                 />
 
                 <input
@@ -382,7 +575,11 @@ const Signup = () => {
                   onKeyDown={handleKeyDownOrPressEnter}
                   placeholder="Enter your email"
                   autoComplete="email"
-                  className="w-full h-13.5 pl-12 pr-4 rounded-xl border border-[#dbe4f1] bg-white text-sm text-slate-800 outline-none placeholder:text-[#9aa7bc] focus:border-blue-400 focus:ring-4 focus:ring-blue-100 transition"
+                  className={`w-full h-13.5 pl-12 pr-4 rounded-xl border text-sm outline-none transition ${
+                    darkMode
+                      ? "bg-[#111c2e] border-white/10 text-white placeholder:text-slate-600 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10"
+                      : "bg-white border-[#dbe4f1] text-slate-800 placeholder:text-[#9aa7bc] focus:border-blue-400 focus:ring-4 focus:ring-blue-100"
+                  }`}
                 />
               </div>
             </div>
@@ -392,14 +589,22 @@ const Signup = () => {
             =================================================== */}
 
             <div>
-              <label className="block mb-2 text-sm font-semibold text-[#34415f]">
+              <label
+                className={`block mb-2 text-sm font-semibold ${
+                  darkMode ? "text-slate-300" : "text-[#34415f]"
+                }`}
+              >
                 Password
               </label>
 
               <div className="relative group">
                 <LockKeyhole
                   size={19}
-                  className="absolute left-4 top-1/2 -translate-y-1/2 text-[#8997b4] group-focus-within:text-blue-500 transition-colors"
+                  className={`absolute left-4 top-1/2 -translate-y-1/2 transition-colors ${
+                    darkMode
+                      ? "text-slate-500 group-focus-within:text-blue-400"
+                      : "text-[#8997b4] group-focus-within:text-blue-500"
+                  }`}
                 />
 
                 <input
@@ -412,13 +617,21 @@ const Signup = () => {
                   onKeyDown={handleKeyDownOrPressEnter}
                   placeholder="Create a password"
                   autoComplete="new-password"
-                  className="w-full h-13.5 pl-12 pr-12 rounded-xl border border-[#dbe4f1] bg-white text-sm text-slate-800 outline-none placeholder:text-[#9aa7bc] focus:border-blue-400 focus:ring-4 focus:ring-blue-100 transition"
+                  className={`w-full h-13.5 pl-12 pr-12 rounded-xl border text-sm outline-none transition ${
+                    darkMode
+                      ? "bg-[#111c2e] border-white/10 text-white placeholder:text-slate-600 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10"
+                      : "bg-white border-[#dbe4f1] text-slate-800 placeholder:text-[#9aa7bc] focus:border-blue-400 focus:ring-4 focus:ring-blue-100"
+                  }`}
                 />
 
                 <button
                   type="button"
                   onClick={onShowPasswordClick}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-lg flex items-center justify-center text-[#8997b4] hover:bg-blue-50 hover:text-blue-600 border-none cursor-pointer transition"
+                  className={`absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-lg flex items-center justify-center border-none cursor-pointer transition ${
+                    darkMode
+                      ? "text-slate-500 hover:bg-blue-500/10 hover:text-blue-400"
+                      : "text-[#8997b4] hover:bg-blue-50 hover:text-blue-600"
+                  }`}
                 >
                   {showPassword ? <EyeOff size={19} /> : <Eye size={19} />}
                 </button>
@@ -430,14 +643,22 @@ const Signup = () => {
             =================================================== */}
 
             <div>
-              <label className="block mb-2 text-sm font-semibold text-[#34415f]">
+              <label
+                className={`block mb-2 text-sm font-semibold ${
+                  darkMode ? "text-slate-300" : "text-[#34415f]"
+                }`}
+              >
                 Confirm Password
               </label>
 
               <div className="relative group">
                 <LockKeyhole
                   size={19}
-                  className="absolute left-4 top-1/2 -translate-y-1/2 text-[#8997b4] group-focus-within:text-blue-500 transition-colors"
+                  className={`absolute left-4 top-1/2 -translate-y-1/2 transition-colors ${
+                    darkMode
+                      ? "text-slate-500 group-focus-within:text-blue-400"
+                      : "text-[#8997b4] group-focus-within:text-blue-500"
+                  }`}
                 />
 
                 <input
@@ -450,13 +671,21 @@ const Signup = () => {
                   onKeyDown={handleKeyDownOrPressEnter}
                   placeholder="Confirm your password"
                   autoComplete="new-password"
-                  className="w-full h-13.5 pl-12 pr-12 rounded-xl border border-[#dbe4f1] bg-white text-sm text-slate-800 outline-none placeholder:text-[#9aa7bc] focus:border-blue-400 focus:ring-4 focus:ring-blue-100 transition"
+                  className={`w-full h-13.5 pl-12 pr-12 rounded-xl border text-sm outline-none transition ${
+                    darkMode
+                      ? "bg-[#111c2e] border-white/10 text-white placeholder:text-slate-600 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10"
+                      : "bg-white border-[#dbe4f1] text-slate-800 placeholder:text-[#9aa7bc] focus:border-blue-400 focus:ring-4 focus:ring-blue-100"
+                  }`}
                 />
 
                 <button
                   type="button"
                   onClick={onShowConfirmPasswordClick}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-lg flex items-center justify-center text-[#8997b4] hover:bg-blue-50 hover:text-blue-600 border-none cursor-pointer transition"
+                  className={`absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-lg flex items-center justify-center border-none cursor-pointer transition ${
+                    darkMode
+                      ? "text-slate-500 hover:bg-blue-500/10 hover:text-blue-400"
+                      : "text-[#8997b4] hover:bg-blue-50 hover:text-blue-600"
+                  }`}
                 >
                   {showConfirmPassword ? (
                     <EyeOff size={19} />
@@ -471,20 +700,36 @@ const Signup = () => {
                 Password Requirement
             =================================================== */}
 
-            <div className="flex items-center gap-2 px-3 py-2.5 rounded-xl bg-slate-50 border border-slate-100">
+            <div
+              className={`flex items-center gap-2 px-3 py-2.5 rounded-xl border transition-colors ${
+                darkMode
+                  ? "bg-white/5 border-white/10"
+                  : "bg-slate-50 border-slate-100"
+              }`}
+            >
               <CheckCircle2
                 size={15}
                 className={
-                  password.length >= 6 ? "text-emerald-500" : "text-slate-300"
+                  password.length >= 6
+                    ? "text-emerald-500"
+                    : darkMode
+                      ? "text-slate-600"
+                      : "text-slate-300"
                 }
               />
 
-              <p className="m-0 text-[10px] font-medium text-slate-500">
+              <p
+                className={`m-0 text-[10px] font-medium ${
+                  darkMode ? "text-slate-500" : "text-slate-500"
+                }`}
+              >
                 Password should contain at least 6 characters
               </p>
             </div>
 
-            {/* Term and Condition */}
+            {/* ===================================================
+                Terms & Conditions
+            =================================================== */}
 
             <div className="flex items-start gap-3 px-1 py-1">
               <button
@@ -496,7 +741,9 @@ const Signup = () => {
                 className={`mt-0.5 w-5 h-5 shrink-0 rounded-md border flex items-center justify-center cursor-pointer transition ${
                   agreeToTerms
                     ? "bg-blue-600 border-blue-600"
-                    : "bg-white border-[#cbd5e1] hover:border-blue-400"
+                    : darkMode
+                      ? "bg-[#111c2e] border-white/15 hover:border-blue-500"
+                      : "bg-white border-[#cbd5e1] hover:border-blue-400"
                 }`}
                 aria-label="Agree to Terms and Conditions"
               >
@@ -505,25 +752,33 @@ const Signup = () => {
                 )}
               </button>
 
-              <p className="m-0 text-xs leading-5 text-[#7180a0]">
+              <p
+                className={`m-0 text-xs leading-5 ${
+                  darkMode ? "text-slate-500" : "text-[#7180a0]"
+                }`}
+              >
                 I agree to the{" "}
-                <button
-                  type="button"
-                  className="p-0 border-none bg-transparent text-blue-600 hover:text-blue-700 font-semibold cursor-pointer"
+                <Link
+                  to="/terms"
+                  className={`font-semibold transition-colors ${
+                    darkMode
+                      ? "text-blue-400 hover:text-blue-300"
+                      : "text-blue-600 hover:text-blue-700"
+                  }`}
                 >
-                  <Link to='/terms'>
-                    Terms & Conditions
-                  </Link>
-                </button>{" "}
+                  Terms & Conditions
+                </Link>{" "}
                 and{" "}
-                <button
-                  type="button"
-                  className="p-0 border-none bg-transparent text-blue-600 hover:text-blue-700 font-semibold cursor-pointer"
+                <Link
+                  to="/privacy-policy"
+                  className={`font-semibold transition-colors ${
+                    darkMode
+                      ? "text-blue-400 hover:text-blue-300"
+                      : "text-blue-600 hover:text-blue-700"
+                  }`}
                 >
-                  <Link to='/privacy-policy'>
-                    Privacy Policy
-                  </Link>
-                </button>
+                  Privacy Policy
+                </Link>
                 .
               </p>
             </div>
@@ -533,10 +788,22 @@ const Signup = () => {
             =================================================== */}
 
             {error && (
-              <div className="flex items-center gap-2 px-3.5 py-3 rounded-xl border border-red-100 bg-red-50">
+              <div
+                className={`flex items-center gap-2 px-3.5 py-3 rounded-xl border ${
+                  darkMode
+                    ? "border-red-500/20 bg-red-500/10"
+                    : "border-red-100 bg-red-50"
+                }`}
+              >
                 <div className="w-1.5 h-1.5 rounded-full bg-red-500 shrink-0" />
 
-                <p className="m-0 text-xs font-medium text-red-600">{error}</p>
+                <p
+                  className={`m-0 text-xs font-medium ${
+                    darkMode ? "text-red-400" : "text-red-600"
+                  }`}
+                >
+                  {error}
+                </p>
               </div>
             )}
 
@@ -574,11 +841,19 @@ const Signup = () => {
           ===================================================== */}
 
           <div className="mt-6 text-center">
-            <p className="m-0 text-sm text-[#7180a0]">
+            <p
+              className={`m-0 text-sm ${
+                darkMode ? "text-slate-500" : "text-[#7180a0]"
+              }`}
+            >
               Already have an account?{" "}
               <Link
                 to="/auth/login"
-                className="font-semibold text-blue-600 hover:text-blue-700 transition-colors"
+                className={`font-semibold transition-colors ${
+                  darkMode
+                    ? "text-blue-400 hover:text-blue-300"
+                    : "text-blue-600 hover:text-blue-700"
+                }`}
               >
                 Sign in
               </Link>
@@ -589,7 +864,11 @@ const Signup = () => {
               Security
           ===================================================== */}
 
-          <div className="mt-6 flex items-center justify-center gap-2 text-xs text-[#8997b4]">
+          <div
+            className={`mt-6 flex items-center justify-center gap-2 text-xs ${
+              darkMode ? "text-slate-600" : "text-[#8997b4]"
+            }`}
+          >
             <ShieldCheck size={16} className="text-emerald-500" />
             Secure authentication powered by SmartHaven
           </div>
