@@ -1,60 +1,119 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import { Home, ShieldCheck, ArrowLeft } from "lucide-react";
 
+import { useTheme } from "../context/theme-context";
+
 const TermsConditionPage = () => {
+  const { darkMode } = useTheme();
+
   return (
-    <div className="min-h-screen bg-[#f5f8fc] px-5 py-8 sm:px-8">
+    <div
+      className={`min-h-screen px-5 py-8 sm:px-8 transition-colors duration-300 ${
+        darkMode ? "bg-[#0b1220]" : "bg-[#f5f8fc]"
+      }`}
+    >
       <div className="max-w-4xl mx-auto">
-        {/* Header */}
+        {/* =====================================================
+            HEADER
+        ===================================================== */}
+
         <div className="flex items-center justify-between mb-8">
           <Link
             to="/auth/signup"
-            className="flex items-center gap-2 text-sm font-semibold text-blue-600 hover:text-blue-700 transition"
+            className={`flex items-center gap-2 text-sm font-semibold transition ${
+              darkMode
+                ? "text-blue-400 hover:text-blue-300"
+                : "text-blue-600 hover:text-blue-700"
+            }`}
           >
             <ArrowLeft size={18} />
             Back to Signup
           </Link>
 
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-linear-to-br from-blue-600 to-cyan-500 flex items-center justify-center text-white shadow-lg shadow-blue-100">
+            <div className="w-10 h-10 rounded-xl bg-linear-to-br from-blue-600 to-cyan-500 flex items-center justify-center text-white shadow-lg shadow-blue-500/20">
               <Home size={21} />
             </div>
 
             <div className="hidden sm:block">
-              <h2 className="m-0 text-lg font-bold text-[#101936]">
+              <h2
+                className={`m-0 text-lg font-bold ${
+                  darkMode ? "text-white" : "text-[#101936]"
+                }`}
+              >
                 SmartHaven
               </h2>
 
-              <p className="m-0 text-[11px] text-[#7180a0]">
+              <p
+                className={`m-0 text-[11px] ${
+                  darkMode ? "text-slate-500" : "text-[#7180a0]"
+                }`}
+              >
                 Smart Home Monitoring
               </p>
             </div>
           </div>
         </div>
 
-        {/* Main Card */}
-        <div className="bg-white rounded-2xl border border-[#e1e8f2] shadow-[0_10px_40px_rgba(30,70,120,0.06)] p-6 sm:p-10">
-          {/* Title */}
+        {/* =====================================================
+            MAIN CARD
+        ===================================================== */}
+
+        <div
+          className={`rounded-2xl border p-6 sm:p-10 transition-colors duration-300 ${
+            darkMode
+              ? "bg-[#111c2e] border-white/10 shadow-[0_10px_40px_rgba(0,0,0,0.2)]"
+              : "bg-white border-[#e1e8f2] shadow-[0_10px_40px_rgba(30,70,120,0.06)]"
+          }`}
+        >
+          {/* =====================================================
+              TITLE
+          ===================================================== */}
+
           <div className="mb-8">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-50 border border-blue-100 text-blue-600 text-xs font-semibold mb-4">
+            <div
+              className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold mb-4 ${
+                darkMode
+                  ? "bg-blue-500/10 border border-blue-500/20 text-blue-400"
+                  : "bg-blue-50 border border-blue-100 text-blue-600"
+              }`}
+            >
               <ShieldCheck size={15} />
               Legal Information
             </div>
 
-            <h1 className="m-0 text-3xl sm:text-4xl font-bold tracking-tight text-[#101936]">
+            <h1
+              className={`m-0 text-3xl sm:text-4xl font-bold tracking-tight ${
+                darkMode ? "text-white" : "text-[#101936]"
+              }`}
+            >
               Terms & Conditions
             </h1>
 
-            <p className="m-0 mt-2 text-sm text-[#7180a0]">
+            <p
+              className={`m-0 mt-2 text-sm ${
+                darkMode ? "text-slate-500" : "text-[#7180a0]"
+              }`}
+            >
               Last updated: September 2026
             </p>
           </div>
 
-          {/* Content */}
-          <div className="space-y-7 text-sm leading-7 text-[#5f6f8c]">
+          {/* =====================================================
+              CONTENT
+          ===================================================== */}
+
+          <div
+            className={`space-y-7 text-sm leading-7 ${
+              darkMode ? "text-slate-400" : "text-[#5f6f8c]"
+            }`}
+          >
             <section>
-              <h2 className="m-0 mb-2 text-lg font-bold text-[#17213f]">
+              <h2
+                className={`m-0 mb-2 text-lg font-bold ${
+                  darkMode ? "text-white" : "text-[#17213f]"
+                }`}
+              >
                 1. Acceptance of Terms
               </h2>
 
@@ -66,7 +125,11 @@ const TermsConditionPage = () => {
             </section>
 
             <section>
-              <h2 className="m-0 mb-2 text-lg font-bold text-[#17213f]">
+              <h2
+                className={`m-0 mb-2 text-lg font-bold ${
+                  darkMode ? "text-white" : "text-[#17213f]"
+                }`}
+              >
                 2. Use of SmartHaven
               </h2>
 
@@ -79,7 +142,11 @@ const TermsConditionPage = () => {
             </section>
 
             <section>
-              <h2 className="m-0 mb-2 text-lg font-bold text-[#17213f]">
+              <h2
+                className={`m-0 mb-2 text-lg font-bold ${
+                  darkMode ? "text-white" : "text-[#17213f]"
+                }`}
+              >
                 3. Your Account
               </h2>
 
@@ -91,7 +158,11 @@ const TermsConditionPage = () => {
             </section>
 
             <section>
-              <h2 className="m-0 mb-2 text-lg font-bold text-[#17213f]">
+              <h2
+                className={`m-0 mb-2 text-lg font-bold ${
+                  darkMode ? "text-white" : "text-[#17213f]"
+                }`}
+              >
                 4. Sensor Information
               </h2>
 
@@ -104,7 +175,11 @@ const TermsConditionPage = () => {
             </section>
 
             <section>
-              <h2 className="m-0 mb-2 text-lg font-bold text-[#17213f]">
+              <h2
+                className={`m-0 mb-2 text-lg font-bold ${
+                  darkMode ? "text-white" : "text-[#17213f]"
+                }`}
+              >
                 5. Privacy
               </h2>
 
@@ -116,7 +191,11 @@ const TermsConditionPage = () => {
             </section>
 
             <section>
-              <h2 className="m-0 mb-2 text-lg font-bold text-[#17213f]">
+              <h2
+                className={`m-0 mb-2 text-lg font-bold ${
+                  darkMode ? "text-white" : "text-[#17213f]"
+                }`}
+              >
                 6. Service Availability
               </h2>
 
@@ -128,7 +207,11 @@ const TermsConditionPage = () => {
             </section>
 
             <section>
-              <h2 className="m-0 mb-2 text-lg font-bold text-[#17213f]">
+              <h2
+                className={`m-0 mb-2 text-lg font-bold ${
+                  darkMode ? "text-white" : "text-[#17213f]"
+                }`}
+              >
                 7. Changes to These Terms
               </h2>
 
@@ -140,7 +223,11 @@ const TermsConditionPage = () => {
             </section>
 
             <section>
-              <h2 className="m-0 mb-2 text-lg font-bold text-[#17213f]">
+              <h2
+                className={`m-0 mb-2 text-lg font-bold ${
+                  darkMode ? "text-white" : "text-[#17213f]"
+                }`}
+              >
                 8. Contact
               </h2>
 
@@ -151,9 +238,20 @@ const TermsConditionPage = () => {
             </section>
           </div>
 
-          {/* Footer */}
-          <div className="mt-10 pt-6 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-4">
-            <p className="m-0 text-xs text-slate-400">
+          {/* =====================================================
+              FOOTER
+          ===================================================== */}
+
+          <div
+            className={`mt-10 pt-6 border-t flex flex-col sm:flex-row items-center justify-between gap-4 ${
+              darkMode ? "border-white/10" : "border-slate-100"
+            }`}
+          >
+            <p
+              className={`m-0 text-xs ${
+                darkMode ? "text-slate-500" : "text-slate-400"
+              }`}
+            >
               © 2026 SmartHaven. All rights reserved.
             </p>
 
