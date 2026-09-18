@@ -10,6 +10,7 @@ import SettingsPage from "./pages/SettingsPage";
 import DashboardPage from "./pages/DashboardPage";
 
 import useAuth from "./hooks/useAuth";
+import TermsConditionPage from "./pages/TermsConditionPage";
 
 const App = () => {
 
@@ -61,6 +62,8 @@ const App = () => {
           <Navigate to={isLoggedIn ? '/dashboard' : '/auth/login'}  replace />
         } />
       </Route>
+
+      <Route  path="/terms" element={<TermsConditionPage />}  />
     </Routes>
   );
 };
