@@ -1,14 +1,24 @@
 import { Sun, Moon, ChevronDown, CalendarDays, Menu } from "lucide-react";
 import { useTheme } from "../../context/theme-context";
+import useDashboard from "../../hooks/useDashboard";
+import { dummySettings } from "../../db/dummyData";
+import { useState } from "react";
+import { UseSetting } from "../../hooks/UseSetting";
+import { img } from "framer-motion/client";
 
-const DashboardHeader = ({
-  darkMode,
+const DashboardHeader = () => {
+
+  const { darkMode,
   setDarkMode,
   isDemo,
   userName,
   userInitial,
-  onMenuClick,
-}) => {
+  onMenuClick, } = useDashboard()
+
+  const {profilePhoto} = UseSetting()
+
+  const [profile, setProfile] = useState(dummySettings.profile)
+
   const onUiModeBtnClick = () => {
     setDarkMode(!darkMode);
   };
@@ -127,7 +137,28 @@ const DashboardHeader = ({
                     : "bg-linear-to-br from-[#3949c9] to-[#2c3bb7] shadow-indigo-200"
                 }`}
               >
-                {userInitial}
+                {
+                  !isDemo && (
+                    profilePhoto ? (
+                      <img 
+                        src={profilePhoto}
+                        alt="profile"
+                        className="w-full h-full rounded-full object-cover p-0.5"
+                      />
+                  ): <div>
+                    {userName.charAt(0)}
+                  </div>
+                )
+                }
+                {
+                  isDemo && (
+                    profile.profileImg ? (
+                      <img  src={profile.profileImg}  className="w-full h-full rounded-2xl object-cover p-0.5 bg-gray-500/70" />
+                    ) : <div>
+                      {profile.firstName.charAt(0)}
+                    </div>
+                  )
+                }
 
                 <span
                   className={`absolute -right-0.5 -bottom-0.5 w-3 h-3 rounded-full border-2 ${
@@ -143,7 +174,9 @@ const DashboardHeader = ({
                       darkMode ? "text-white" : "text-[#101936]"
                     }`}
                   >
-                    {userName}
+                    {
+                      isDemo ? profile.displayName : userName
+                    }
                   </p>
 
                   <ChevronDown

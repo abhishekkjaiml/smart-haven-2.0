@@ -8,7 +8,7 @@ import { useOutletContext } from "react-router-dom";
 
 import { useTheme } from "../context/theme-context";
 
-const useDashboard = ({ isDummyUser = false }) => {
+const useDashboard = () => {
   const { onMenuClick } = useOutletContext();
 
   const [deviceId, setDeviceId] = useState(
@@ -38,8 +38,7 @@ const useDashboard = ({ isDummyUser = false }) => {
 
   const dummyInterval = useRef(null);
 
-  const isDemo =
-    isDummyUser || localStorage.getItem("smarthaven_dummy_user") === "true";
+  const isDemo = localStorage.getItem("smarthaven_dummy_user") === "true";
 
   // Update last updated time
 
@@ -376,9 +375,7 @@ const useDashboard = ({ isDummyUser = false }) => {
 
   const user = auth.currentUser;
 
-  const userName = isDemo
-    ? "Demo User"
-    : user?.displayName || user?.email?.split("@")[0] || "User";
+  const userName = user?.displayName || user?.email?.split("@")[0] || "User";
 
   const userInitial = userName.charAt(0).toUpperCase();
 
