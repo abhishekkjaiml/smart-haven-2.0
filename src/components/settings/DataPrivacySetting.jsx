@@ -1,45 +1,41 @@
-import { Database } from 'lucide-react'
-import { useTheme } from '../../context/theme-context'
+import { Database } from "lucide-react";
+import { useTheme } from "../../context/theme-context";
 
-import { PrivacySettings } from './SettingPageData'
-import { useState } from 'react'
-import { dummySettings } from '../../db/dummyData'
+import { PrivacySettings } from "./SettingPageData";
+import { useState } from "react";
+import { dummySettings } from "../../db/dummyData";
 
 const DataPrivacySetting = () => {
+  const { darkMode } = useTheme();
 
-  const { darkMode } = useTheme()
-
-  const [dataPrivacy, setDataPrivacy] = useState(
-    dummySettings.privacy
-  )
+  const [dataPrivacy, setDataPrivacy] = useState(dummySettings.privacy);
 
   const toggleDataPrivacy = (key) => {
     setDataPrivacy((prev) => ({
       ...prev,
-      [key]: !prev[key]
-    }))
-  }
+      [key]: !prev[key],
+    }));
+  };
 
-  
   return (
     <section
       className={`mt-6 rounded-2xl border transition-colors duration-300 ${
-          darkMode
-            ? "bg-[#111c2e] border-white/10 shadow-[0_4px_20px_rgba(0,0,0,0.18)]"
-            : "bg-white border-slate-100 shadow-[0_4px_20px_rgba(36,68,120,0.05)]"
-        }`}
+        darkMode
+          ? "bg-[#111c2e] border-white/10 shadow-[0_4px_20px_rgba(0,0,0,0.18)]"
+          : "bg-white border-slate-100 shadow-[0_4px_20px_rgba(36,68,120,0.05)]"
+      }`}
     >
       <div
         className={`px-6 py-5 border-b flex items-center gap-3 ${
-            darkMode ? "border-white/10" : "border-slate-100"
-          }`}
+          darkMode ? "border-white/10" : "border-slate-100"
+        }`}
       >
         <div
           className={`w-10 h-10 rounded-xl flex items-center justify-center ${
-              darkMode
-                ? "bg-amber-500/10 text-amber-400"
-                : "bg-amber-50 text-amber-600"
-            }`}
+            darkMode
+              ? "bg-amber-500/10 text-amber-400"
+              : "bg-amber-50 text-amber-600"
+          }`}
         >
           <Database size={20} />
         </div>
@@ -47,16 +43,16 @@ const DataPrivacySetting = () => {
         <div>
           <h2
             className={`m-0 text-base font-bold ${
-                darkMode ? "text-white" : "text-[#101936]"
-              }`}
+              darkMode ? "text-white" : "text-[#101936]"
+            }`}
           >
             Data & Privacy
           </h2>
 
           <p
             className={`m-0 mt-1 text-xs ${
-                darkMode ? "text-slate-500" : "text-[#8997b4]"
-              }`}
+              darkMode ? "text-slate-500" : "text-[#8997b4]"
+            }`}
           >
             Manage how your SmartHaven data is handled.
           </p>
@@ -102,7 +98,7 @@ const DataPrivacySetting = () => {
         ))}
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default DataPrivacySetting
+export default DataPrivacySetting;
