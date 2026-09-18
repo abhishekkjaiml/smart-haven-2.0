@@ -50,7 +50,7 @@ const ProfileSetting = ({ isDummyUser = false }) => {
 
       <div className="p-6">
         <div className="flex flex-col sm:flex-row items-center gap-5 mb-7">
-          <div className="w-20 h-20 rounded-full bg-gradient-to-br from-[#3949c9] to-[#2c3bb7] text-white flex items-center justify-center text-2xl font-bold shadow-md">
+          <div className="w-20 h-20 rounded-full bg-linear-to-br from-[#3949c9] to-[#2c3bb7] text-white flex items-center justify-center text-2xl font-bold shadow-md">
             {profile.profileImg ? (
               <img
                 src={profile.profileImg}

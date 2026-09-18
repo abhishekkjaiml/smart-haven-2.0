@@ -1,6 +1,11 @@
 import { Save } from "lucide-react";
 import { useTheme } from "../context/theme-context";
 import ProfileSetting from "../components/settings/ProfileSetting";
+import NotificationsSetting from "../components/settings/NotificationsSetting";
+import UnitsDisplaySetting from "../components/settings/UnitsDisplaySetting";
+import DeviceManagementSetting from "../components/settings/DeviceManagementSetting";
+import DataPrivacySetting from "../components/settings/DataPrivacySetting";
+import AboutSmartHavenSetting from "../components/settings/AboutSmartHavenSetting";
 
 const SettingsPage = () => {
   const { darkMode, toggleTheme } = useTheme();
@@ -49,6 +54,28 @@ const SettingsPage = () => {
         <div>
               <ProfileSetting />
         </div>
+
+        {/* Notification Setting */}
+
+        <div>
+          <NotificationsSetting />
+        </div>
+
+        {/* Units & Display Setting */}
+
+        <UnitsDisplaySetting  />
+
+        {/* Device Management */}
+
+        <DeviceManagementSetting />
+
+        {/* Data & Privacy */}
+
+        <DataPrivacySetting />
+
+        {/* About SmartHaven */}
+
+        <AboutSmartHavenSetting />
 
         <div
           className={`mt-6 p-5 rounded-2xl border transition-colors duration-300 ${darkMode ? "bg-[#111c2e] border-white/10" : "bg-white border-slate-100"}`}
