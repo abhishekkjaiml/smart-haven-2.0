@@ -1,4 +1,5 @@
 import { Sun, Moon, ChevronDown, CalendarDays, Menu } from "lucide-react";
+import { useTheme } from "../../context/theme-context";
 
 const DashboardHeader = ({
   darkMode,
