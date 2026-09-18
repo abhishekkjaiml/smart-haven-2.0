@@ -325,3 +325,48 @@ export const DashboardDensities = [
     description: "More space between dashboard elements",
   },
 ];
+
+export const PrivacySettings = [
+  {
+    id: "dataSharing",
+    title: "Data Sharing",
+    description: "Allow anonymous data sharing for improving SmartHaven.",
+  },
+  {
+    id: "analytics",
+    title: "Analytics",
+    description:
+      "Help improve the dashboard through anonymous usage analytics.",
+  },
+  {
+    id: "personalizedInsights",
+    title: "Personalized Insights",
+    description: "Use your sensor history for smart recommendations.",
+  },
+  {
+    id: "saveSensorHistory",
+    title: "Save Sensor History",
+    description: "Keep historical sensor readings for analysis.",
+  },
+  {
+    id: "cloudBackup",
+    title: "Cloud Backup",
+    description: "Back up important SmartHaven settings.",
+  },
+  {
+    id: "crashReports",
+    title: "Crash Reports",
+    description: "Send anonymous crash reports to help improve SmartHaven.",
+  },
+  {
+    id: "deviceDiagnostics",
+    title: "Device Diagnostics",
+    description: "Share device diagnostics to help identify connection issues.",
+  },
+  {
+    id: "automaticDataSync",
+    title: "Automatic Data Sync",
+    description:
+      "Automatically synchronize your SmartHaven data across sessions.",
+  },
+];
