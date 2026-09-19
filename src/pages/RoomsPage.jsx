@@ -1,20 +1,26 @@
 import DeviceClaimRoom from "../components/Rooms/DeviceClaimRoom";
+import SearchRooms from "../components/Rooms/SearchRooms";
+
 import { useTheme } from "../context/theme-context";
 import { useDevice } from "../context/device-context";
+
 import { Plus, Unplug } from "lucide-react";
-import SearchRooms from "../components/Rooms/SearchRooms";
 
 const RoomsPage = () => {
   const { darkMode } = useTheme();
   const { deviceClaimed, resetDevice } = useDevice();
+
   return (
     <div
       className={`min-h-screen p-6 transition-colors duration-300 ${
         darkMode ? "bg-[#0b1220]" : "bg-[#f5f8fc]"
-      }
-      `}
+      }`}
     >
-      <div className="min-w-full ">
+      <div className="min-w-full">
+        {/* =========================================================
+            Page Header
+        ========================================================= */}
+
         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-5">
           <div>
             <h1
@@ -36,6 +42,7 @@ const RoomsPage = () => {
 
           {deviceClaimed && (
             <div className="flex flex-wrap gap-4">
+              {/* Disconnect */}
               <button
                 type="button"
                 onClick={resetDevice}
@@ -45,6 +52,7 @@ const RoomsPage = () => {
                 Disconnect
               </button>
 
+              {/* Add Room */}
               <button
                 type="button"
                 className="w-fit h-11 px-5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold flex items-center gap-2 transition-all duration-200 cursor-pointer shadow-sm hover:shadow-md"
@@ -55,12 +63,19 @@ const RoomsPage = () => {
             </div>
           )}
         </div>
-        {/* Search Rooms */}
+
+        {/* =========================================================
+            Search Rooms
+        ========================================================= */}
+
         <div>
           <SearchRooms />
         </div>
 
-        {/* Device Claim */}
+        {/* =========================================================
+            Device Claim / Rooms
+        ========================================================= */}
+
         <div>
           <DeviceClaimRoom />
         </div>
