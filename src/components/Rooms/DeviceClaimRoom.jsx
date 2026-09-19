@@ -121,6 +121,8 @@ const DeviceClaimRoom = () => {
     }, 700);
   };
 
+
+
   return (
     <section className="my-6">
       {!deviceClaimed ? (
