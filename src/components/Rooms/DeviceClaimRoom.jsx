@@ -10,6 +10,7 @@ import {
 
 import SearchRooms from "./SearchRooms";
 import { useDevice } from "../../context/device-context";
+import AllRooms from "./AllRooms";
 
 const DeviceClaimRoom = () => {
   const {
@@ -109,11 +110,17 @@ const DeviceClaimRoom = () => {
           </div>
         </div>
       ) : (
-        <div>
-          {/* Search Rooms */}
+        <section>
+          <div>
+            {/* Search Rooms */}
 
-          <SearchRooms />
-        </div>
+            {/* <SearchRooms /> */}
+          </div>
+
+          <div>
+            <AllRooms />
+          </div>
+        </section>
       )}
 
       {alertData && (

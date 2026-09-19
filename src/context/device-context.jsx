@@ -1,7 +1,7 @@
 import { createContext, useContext, useState, useEffect } from "react";
 
 import useAuth from "../hooks/useAuth";
-import { DUMMY_DEVICE_ID } from "../db/dummyData";
+import { DUMMY_DEVICE_ID, dummyRooms } from "../db/dummyData";
 
 const DeviceContext = createContext();
 
@@ -110,6 +110,35 @@ const DeviceProvider = ({ children }) => {
       });
     }, 700);
   };
+
+  // Load Room After Claim Device
+
+  useEffect(() => {
+
+    if(!isDummyUser || !deviceClaimed){
+        setRooms([]);
+        return;
+    }
+
+    const saveDevice = localStorage.getItem(CLAIMED_DEVICE_KEY)
+
+    if(saveDevice !== DUMMY_DEVICE_ID){
+        setRooms([]);
+        return;
+    }
+
+    const initialRoom = dummyRooms.map((room) => ({
+        ...room,
+
+        sensors: {
+            ...room.sensors
+        }
+    }))
+
+    setRooms(initialRoom)
+
+    
+  }, [isDummyUser, deviceClaimed])
 
   // Reset Devive
 
