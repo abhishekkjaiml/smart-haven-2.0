@@ -1,6 +1,3 @@
-import { useEffect, useState } from "react";
-import useAuth from "../../hooks/useAuth";
-import useDashboard from "../../hooks/useDashboard";
 import {
   Link2,
   RefreshCw,
@@ -10,8 +7,7 @@ import {
   CheckCircle2,
   Info,
 } from "lucide-react";
-import { DUMMY_DEVICE_ID } from "../../db/dummyData";
-import { div, p } from "framer-motion/client";
+
 import SearchRooms from "./SearchRooms";
 import { useDevice } from "../../context/device-context";
 
