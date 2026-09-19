@@ -114,42 +114,133 @@ const DeviceProvider = ({ children }) => {
   // Load Room After Claim Device
 
   useEffect(() => {
-
-    if(!isDummyUser || !deviceClaimed){
-        setRooms([]);
-        return;
+    if (!isDummyUser || !deviceClaimed) {
+      setRooms([]);
+      return;
     }
 
-    const saveDevice = localStorage.getItem(CLAIMED_DEVICE_KEY)
+    const saveDevice = localStorage.getItem(CLAIMED_DEVICE_KEY);
 
-    if(saveDevice !== DUMMY_DEVICE_ID){
-        setRooms([]);
-        return;
+    if (saveDevice !== DUMMY_DEVICE_ID) {
+      setRooms([]);
+      return;
     }
 
     const initialRoom = dummyRooms.map((room) => ({
-        ...room,
+      ...room,
 
-        sensors: {
-            ...room.sensors
-        }
-    }))
+      sensors: {
+        ...room.sensors,
+      },
+    }));
 
-    setRooms(initialRoom)
+    setRooms(initialRoom);
 
-    
-  }, [isDummyUser, deviceClaimed])
+    // Live Random Sensor Update
+
+    const interval = setInterval(() => {
+      setRooms((currentRooms) => {
+        return currentRooms.map((room) => {
+          if (room.status !== "online") {
+            return room;
+          }
+
+          const current = room.sensors;
+
+          const ranges = room.sensorRanges || {};
+
+          const randomValue = (value, min, max, step) => {
+            const change = (Math.random() - 0.5) * step;
+
+            const next = value + change;
+
+            return Number(Math.min(max, Math.max(min, next)).toFixed(1));
+          };
+
+          const temperature = randomValue(
+            current.temperature,
+            ranges.temperature?.min ?? 18,
+            ranges.temperature?.max ?? 25,
+            ranges.temperature?.step ?? 1.5,
+          );
+
+          const humidity = Math.round(
+            randomValue(
+              current.humidity,
+              ranges.humidity?.min ?? 35,
+              ranges.humidity?.max ?? 80,
+              ranges.humidity?.step ?? 5,
+            ),
+          );
+
+          const h2 = Math.round(
+            randomValue(
+              current.h2_ppm,
+              ranges.h2_ppm?.min ?? 5,
+              ranges.h2_ppm?.max ?? 30,
+              ranges.h2_ppm?.step ?? 4,
+            ),
+          );
+
+          const co = Math.round(
+            randomValue(
+              current.co_ppm,
+              ranges.co_ppm?.min ?? 1,
+              ranges.co_ppm?.max ?? 15,
+              ranges.co_ppm?.step ?? 2,
+            ),
+          );
+
+          const ch4 = Math.round(
+            randomValue(
+              current.ch4_ppm,
+              ranges.ch4_ppm?.min ?? 3,
+              ranges.ch4_ppm?.max ?? 25,
+              ranges.ch4_ppm?.step ?? 4,
+            ),
+          );
+
+          const aqi = Math.round(
+            randomValue(
+              current.aqi,
+              ranges.aqi?.min ?? 20,
+              ranges.aqi?.max ?? 100,
+              ranges.aqi?.step ?? 8,
+            ),
+          );
+
+          return {
+            ...room,
+            sensors: {
+              temperature,
+              humidity,
+              h2_ppm: h2,
+              co_ppm: co,
+              ch4_ppm: ch4,
+              aqi,
+            },
+
+            lastUpdate: "Just now",
+          };
+        });
+      });
+    }, 2000);
+
+    return () => {
+      clearInterval(interval);
+    };
+  }, [dummyRooms, deviceClaimed]);
 
   // Reset Devive
 
   const resetDevice = () => {
     localStorage.removeItem(CLAIMED_DEVICE_KEY);
 
-    setClaimedDeviceId('');
+    setClaimedDeviceId("");
     setDeviceClaimed(false);
-    setDeviceId('');
+    setDeviceId("");
     setRooms([]);
-  }
+  };
 
   return (
     <DeviceContext.Provider
@@ -169,10 +260,10 @@ const DeviceProvider = ({ children }) => {
         setRooms,
         setAlertData,
         handleClaimDevice,
-        CLAIMED_DEVICE_KEY, 
+        CLAIMED_DEVICE_KEY,
         DUMMY_DEVICE_ID,
         isDummyUser,
-        resetDevice
+        resetDevice,
       }}
     >
       {children}
