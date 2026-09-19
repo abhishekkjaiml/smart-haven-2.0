@@ -232,6 +232,16 @@ const AllRooms = () => {
           </div>
         </div>
       )}
+
+      {rooms.length > 0 && (
+            <div className="mt-7 flex items-center justify-center gap-2 text-xs text-slate-400">
+
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+
+              Sensor values update automatically every 2 seconds
+
+            </div>
+          )}
     </section>
   );
 };
