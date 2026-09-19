@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import { DUMMY_DEVICE_ID } from "../../db/dummyData";
 import { div, p } from "framer-motion/client";
+import SearchRooms from "./SearchRooms";
 
 const DeviceClaimRoom = () => {
   const { isDemo } = useDashboard();
@@ -120,10 +121,8 @@ const DeviceClaimRoom = () => {
     }, 700);
   };
 
-  console.log(typeof alertData);
-
   return (
-    <section className="">
+    <section className="my-6">
       {!deviceClaimed ? (
         <div className="w-full rounded-3xl border border-blue-100 bg-linear-to-br from-white via-blue-50/60 to-slate-50 p-6 sm:p-8 lg:p-10 shadow-sm">
           <div className="max-w-3xl mx-auto text-center">
@@ -204,11 +203,16 @@ const DeviceClaimRoom = () => {
           </div>
         </div>
       ) : (
-        <>Device Clained </>
+        <div>
+          
+          {/* Search Rooms */}
+
+          <SearchRooms />
+        </div>
       )}
 
       {alertData && (
-        <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4">
+        <div className="fixed inset-0 z-9999 flex items-center justify-center p-4">
           {/* Backdrop */}
           <div
             className="absolute inset-0 bg-slate-950/50 backdrop-blur-sm"
