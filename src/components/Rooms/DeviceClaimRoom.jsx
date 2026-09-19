@@ -11,7 +11,7 @@ import {
   Info,
 } from "lucide-react";
 import { DUMMY_DEVICE_ID } from "../../db/dummyData";
-import { div } from "framer-motion/client";
+import { div, p } from "framer-motion/client";
 
 const DeviceClaimRoom = () => {
   const { isDemo } = useDashboard();
@@ -309,6 +309,19 @@ const DeviceClaimRoom = () => {
                     </div>
                   </div>
                 )}
+                
+                {/* Invalind Device Hint */}
+
+                {
+                    alertData.type === 'error' && alertData.deviceId && (
+                        <p  className="m-0 mt-3 text-xs text-slate-400">
+                            Please use the demo device ID shown above.
+                        </p>
+                    )
+                }
+
+                
+
               </div>
             </div>
           </div>
