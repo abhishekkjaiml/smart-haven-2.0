@@ -17,22 +17,13 @@ import { useDevice } from "../../context/device-context";
 
 const DeviceClaimRoom = () => {
   const {
-    search,
     deviceId,
-    claimedDeviceId,
     deviceClaimed,
     loading,
-    rooms,
     alertData,
-    setSearch,
     setDeviceId,
-    setClaimedDeviceId,
-    setDeviceClaimed,
-    setLoading,
-    setRooms,
     setAlertData,
     handleClaimDevice,
-    CLAIMED_DEVICE_KEY,
     DUMMY_DEVICE_ID,
     isDummyUser,
   } = useDevice();
