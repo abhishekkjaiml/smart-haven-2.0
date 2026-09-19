@@ -217,7 +217,20 @@ const AllRooms = () => {
           ))}
         </div>
       ) : (
-        <></>
+        <div  className="w-full min-h-[350px] bg-white border border-slate-100 rounded-2xl flex items-center justify-center shadow-sm">
+          <div  className="text-center px-6">
+            <div  className="w-16 h-16 mx-auto rounded-2xl bg-blue-50 flex items-center justify-center text-blue-600">
+              <Home size={20} />
+            </div>
+            <h1 className="m-0 mt-5 text-lg font-bold text-slate-800">
+              No Rooms Found
+            </h1>
+
+            <p  className="m-0 mt-2 max-w-md text-sm text-slate-500">
+              No rooms are available for the connected device.
+            </p>
+          </div>
+        </div>
       )}
     </section>
   );
