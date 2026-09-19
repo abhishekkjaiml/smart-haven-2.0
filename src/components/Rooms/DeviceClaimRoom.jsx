@@ -208,126 +208,142 @@ const DeviceClaimRoom = () => {
       )}
 
       {alertData && (
-        <div className="fixed inset-0 z-9999 flex items-center justify-center px-4">
+        <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4">
           {/* Backdrop */}
-          <div className="absolute inset-0 bg-slate-950/45 backdrop-blur-[3px]">
-            {/* Model */}
+          <div
+            className="absolute inset-0 bg-slate-950/50 backdrop-blur-sm"
+            onClick={() => setAlertData(null)}
+          />
 
+          {/* Modal */}
+          <div
+            role="alertdialog"
+            aria-modal="true"
+            aria-labelledby="smarthaven-alert-title"
+            aria-describedby="smarthaven-alert-message"
+            onClick={(e) => e.stopPropagation()}
+            className="relative w-full max-w-[430px] overflow-hidden rounded-[26px] border border-white/60 bg-white shadow-[0_30px_90px_rgba(15,23,42,0.25)] animate-[scaleIn_0.2s_ease-out]"
+          >
+            {/* Top Accent */}
             <div
-              role="alertdialog"
-              aria-modal="true"
-              aria-labelledby="smarthaven-alert-title"
-              aria-describedby="smarthaven-alert-message"
-              onClick={(e) => e.stopPropagation()}
-              className="relative w-full max-w-107.5 overflow-hidden rounded-3xl bg-white shadow-[0_25px_70px_rgba(15,23,42,0.20)] animate-[scaleIn_0.2s_ease-out]"
-            >
-              <div
-                className={`h-1.5 w-full ${
-                  alertData.type === "success"
-                    ? "bg-emerald-500"
-                    : alertData.type === "error"
-                      ? "bg-rose-500"
-                      : "bg-blue-500"
-                }`}
-              />
+              className={`h-1.5 w-full ${
+                alertData.type === "success"
+                  ? "bg-emerald-500"
+                  : alertData.type === "error"
+                    ? "bg-rose-500"
+                    : "bg-blue-500"
+              }`}
+            />
 
+            {/* Close Button */}
+            <button
+              type="button"
+              onClick={() => setAlertData(null)}
+              className="absolute right-5 top-5 w-9 h-9 rounded-xl bg-slate-100 text-slate-400 flex items-center justify-center hover:bg-slate-200 hover:text-slate-700 transition-all duration-200 cursor-pointer"
+            >
+              <X size={18} />
+            </button>
+
+            <div className="p-6 sm:p-7">
+              {/* Icon */}
+              <div
+                className={`w-16 h-16 rounded-[20px] flex items-center justify-center mb-5 ${
+                  alertData.type === "success"
+                    ? "bg-emerald-50 text-emerald-500"
+                    : alertData.type === "error"
+                      ? "bg-rose-50 text-rose-500"
+                      : "bg-blue-50 text-blue-500"
+                }`}
+              >
+                {alertData.type === "success" && (
+                  <CheckCircle2 size={31} strokeWidth={2.2} />
+                )}
+
+                {alertData.type === "error" && (
+                  <AlertCircle size={31} strokeWidth={2.2} />
+                )}
+
+                {alertData.type === "info" && (
+                  <Info size={31} strokeWidth={2.2} />
+                )}
+              </div>
+
+              {/* Title */}
+              <h2
+                id="smarthaven-alert-title"
+                className="m-0 pr-10 text-[22px] font-bold tracking-tight text-slate-800"
+              >
+                {alertData.title}
+              </h2>
+
+              {/* Message */}
+              <p
+                id="smarthaven-alert-message"
+                className="m-0 mt-2.5 text-sm leading-6 text-slate-500"
+              >
+                {alertData.message}
+              </p>
+
+              {/* Device ID */}
+              {alertData.deviceId && (
+                <div
+                  className={`mt-5 rounded-2xl border px-4 py-3.5 ${
+                    alertData.type === "success"
+                      ? "border-emerald-100 bg-emerald-50/70"
+                      : "border-rose-100 bg-rose-50/70"
+                  }`}
+                >
+                  <div className="flex items-center gap-3">
+                    <div
+                      className={`w-10 h-10 shrink-0 rounded-xl bg-white flex items-center justify-center shadow-sm ${
+                        alertData.type === "success"
+                          ? "text-emerald-500"
+                          : "text-rose-500"
+                      }`}
+                    >
+                      <Link2 size={18} />
+                    </div>
+
+                    <div className="min-w-0">
+                      <p className="m-0 text-[10px] font-bold uppercase tracking-[0.8px] text-slate-400">
+                        Device ID
+                      </p>
+
+                      <p
+                        className={`m-0 mt-1 text-sm font-bold truncate ${
+                          alertData.type === "success"
+                            ? "text-emerald-700"
+                            : "text-rose-700"
+                        }`}
+                      >
+                        {alertData.deviceId}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Invalid Device Hint */}
+              {alertData.type === "error" && alertData.deviceId && (
+                <p className="m-0 mt-3 text-xs leading-5 text-slate-400">
+                  Please use the demo device ID shown above.
+                </p>
+              )}
+
+              {/* Action Button */}
               <button
                 type="button"
                 onClick={() => setAlertData(null)}
-                className="absolute right-4 top-4 w-9 h-9 rounded-xl bg-slate-50 text-slate-400 flex items-center justify-center hover:bg-slate-100 hover:text-slate-700 transition cursor-pointer"
+                className={`w-full h-12 mt-6 rounded-xl text-sm font-semibold text-white flex items-center justify-center gap-2 transition-all duration-200 cursor-pointer shadow-sm ${
+                  alertData.type === "success"
+                    ? "bg-emerald-500 hover:bg-emerald-600 hover:shadow-emerald-200"
+                    : alertData.type === "error"
+                      ? "bg-rose-500 hover:bg-rose-600 hover:shadow-rose-200"
+                      : "bg-blue-600 hover:bg-blue-700 hover:shadow-blue-200"
+                }`}
               >
-                <X size={18} />
+                {alertData.type === "success" ? "Continue" : "Okay"}
               </button>
-
-              <div>
-                {/* icon */}
-
-                <div
-                  className={`w-14.5 h-14.5 rounded-2xl flex items-center justify-center mb-5 ${
-                    alertData.type === "success"
-                      ? "bg-emerald-50 text-emerald-500"
-                      : alertData.type === "error"
-                        ? "bg-rose-50 text-rose-500"
-                        : "bg-blue-50 text-blue-500"
-                  }`}
-                >
-                  {alertData.type === "success" && (
-                    <CheckCircle2 size={30} strokeWidth={2.2} />
-                  )}
-
-                  {alertData.type === "error" && (
-                    <AlertCircle size={30} strokeWidth={2.2} />
-                  )}
-
-                  {alert.type === "info" && (
-                    <Info size={30} strokeWidth={2.2} />
-                  )}
-                </div>
-
-                {/* Title */}
-
-                <h2
-                  id="smarthaven-alert-title"
-                  className="m-0 pr-8 text-[21px] font-bold tracking-[-0.3px] text-slate-800"
-                >
-                  {alertData.titale}
-                </h2>
-
-                {/* Message */}
-
-                <p
-                  id="smarthaven-alert-message"
-                  className="m-0 mt-2.5 text-sm leading-6 text-slate-500"
-                >
-                  {alertData.message}
-                </p>
-
-                {/* Device ID */}
-
-                {alertData.deviceId && (
-                  <div
-                    className={`mt-5 rounded-2xl border px-4 py-3.5 ${alertData.type === "success" ? "border-emerald-100 bg-emerald-50/70" : "border-rose-100 bg-rose-50/70"}`}
-                  >
-                    <div className="flex items-center gap-3">
-                      <div
-                        className={`w-9 h-9 shrink-0 rounded-xl bg-white flex items-center justify-center ${alertData.type === "success" ? "text-emerald-500" : "text-rose-500"}`}
-                      >
-                        <Link2 size={17} />
-                      </div>
-
-                      <div className="min-w-0">
-                        <p className="m-0 text-[10px] font-semibold uppercase tracking-[0.7px] text-slate-400">
-                          Device ID
-                        </p>
-
-                        <p
-                          className={`m-0 mt-0.5 text-sm font-bold truncate ${alertData.type === "success" ? "text-emerald-700" : "text-rose-700"}`}
-                        >
-                          {alertData.deviceId}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                )}
-
-                {/* Invalind Device Hint */}
-
-                {alertData.type === "error" && alertData.deviceId && (
-                  <p className="m-0 mt-3 text-xs text-slate-400">
-                    Please use the demo device ID shown above.
-                  </p>
-                )}
-
-                {/* Action Button */}
-
-                <button
-                  onClick={() => setAlertData(null)}
-                  className={`w-full h-12 mt-6 rounded-xl text-sm font-semibold text-white
-                  flex items-center justify-center gap-2 transition cursor-pointer ${alertData.type === "success" ? "bg-emerald-500 hover:bg-emerald-600" : alertData.type === "error" ? "bg-rose-500 hover:bg-rose-600" : "bg-blue-600 hover:bg-blue-700"}`}
-                >
-                  {alertData.type === "success" ? "Continue" : "Okey"}
-                </button>
-              </div>
             </div>
           </div>
         </div>
