@@ -223,7 +223,7 @@ const DeviceClaimRoom = () => {
             >
               <div
                 className={`h-1.5 w-full ${
-                  alertData.type === "suscess"
+                  alertData.type === "success"
                     ? "bg-emerald-500"
                     : alertData.type === "error"
                       ? "bg-rose-500"
@@ -251,7 +251,7 @@ const DeviceClaimRoom = () => {
                         : "bg-blue-50 text-blue-500"
                   }`}
                 >
-                  {alertData.type === "suscess" && (
+                  {alertData.type === "success" && (
                     <CheckCircle2 size={30} strokeWidth={2.2} />
                   )}
 
@@ -284,7 +284,31 @@ const DeviceClaimRoom = () => {
 
                 {/* Device ID */}
 
-                
+                {alertData.deviceId && (
+                  <div
+                    className={`mt-5 rounded-2xl border px-4 py-3.5 ${alertData.type === "success" ? "border-emerald-100 bg-emerald-50/70" : "border-rose-100 bg-rose-50/70"}`}
+                  >
+                    <div className="flex items-center gap-3">
+                      <div
+                        className={`w-9 h-9 shrink-0 rounded-xl bg-white flex items-center justify-center ${alertData.type === "success" ? "text-emerald-500" : "text-rose-500"}`}
+                      >
+                        <Link2 size={17} />
+                      </div>
+
+                      <div className="min-w-0">
+                        <p className="m-0 text-[10px] font-semibold uppercase tracking-[0.7px] text-slate-400">
+                          Device ID
+                        </p>
+
+                        <p
+                          className={`m-0 mt-0.5 text-sm font-bold truncate ${alertData.type === "success" ? "text-emerald-700" : "text-rose-700"}`}
+                        >
+                          {alertData.deviceId}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
           </div>
