@@ -270,7 +270,7 @@ const DeviceClaimRoom = () => {
                   id="smarthaven-alert-title"
                   className="m-0 pr-8 text-[21px] font-bold tracking-[-0.3px] text-slate-800"
                 >
-                  {alertData.title}
+                  {alertData.titale}
                 </h2>
 
                 {/* Message */}
@@ -309,19 +309,24 @@ const DeviceClaimRoom = () => {
                     </div>
                   </div>
                 )}
-                
+
                 {/* Invalind Device Hint */}
 
-                {
-                    alertData.type === 'error' && alertData.deviceId && (
-                        <p  className="m-0 mt-3 text-xs text-slate-400">
-                            Please use the demo device ID shown above.
-                        </p>
-                    )
-                }
+                {alertData.type === "error" && alertData.deviceId && (
+                  <p className="m-0 mt-3 text-xs text-slate-400">
+                    Please use the demo device ID shown above.
+                  </p>
+                )}
 
-                
+                {/* Action Button */}
 
+                <button
+                  onClick={() => setAlertData(null)}
+                  className={`w-full h-12 mt-6 rounded-xl text-sm font-semibold text-white
+                  flex items-center justify-center gap-2 transition cursor-pointer ${alertData.type === "success" ? "bg-emerald-500 hover:bg-emerald-600" : alertData.type === "error" ? "bg-rose-500 hover:bg-rose-600" : "bg-blue-600 hover:bg-blue-700"}`}
+                >
+                  {alertData.type === "success" ? "Continue" : "Okey"}
+                </button>
               </div>
             </div>
           </div>
