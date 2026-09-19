@@ -197,410 +197,410 @@ export const dummySensorHistory = [
 
 export const dummyRooms = [
 
-  // {
-  //   id: "room-001",
+  {
+    id: "room-001",
 
-  //   name: "Living Room",
+    name: "Living Room",
 
-  //   type: "Living Room",
+    type: "Living Room",
 
-  //   status: "online",
+    status: "online",
 
-  //   deviceId: DUMMY_DEVICE_ID,
+    deviceId: DUMMY_DEVICE_ID,
 
-  //   image:
-  //     "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=900&q=80",
+    image:
+      "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=900&q=80",
 
-  //   sensors: {
+    sensors: {
 
-  //     temperature: 27.5,
+      temperature: 27.5,
 
-  //     humidity: 58,
+      humidity: 58,
 
-  //     h2_ppm: 12,
+      h2_ppm: 12,
 
-  //     co_ppm: 3,
+      co_ppm: 3,
 
-  //     ch4_ppm: 8,
+      ch4_ppm: 8,
 
-  //     aqi: 42,
+      aqi: 42,
 
-  //   },
+    },
 
-  //   sensorRanges: {
+    sensorRanges: {
 
-  //     temperature: {
-  //       min: 20,
-  //       max: 32,
-  //       step: 1.5,
-  //     },
+      temperature: {
+        min: 20,
+        max: 32,
+        step: 1.5,
+      },
 
-  //     humidity: {
-  //       min: 40,
-  //       max: 75,
-  //       step: 5,
-  //     },
+      humidity: {
+        min: 40,
+        max: 75,
+        step: 5,
+      },
 
-  //     h2_ppm: {
-  //       min: 5,
-  //       max: 25,
-  //       step: 4,
-  //     },
+      h2_ppm: {
+        min: 5,
+        max: 25,
+        step: 4,
+      },
 
-  //     co_ppm: {
-  //       min: 1,
-  //       max: 12,
-  //       step: 2,
-  //     },
+      co_ppm: {
+        min: 1,
+        max: 12,
+        step: 2,
+      },
 
-  //     ch4_ppm: {
-  //       min: 3,
-  //       max: 20,
-  //       step: 4,
-  //     },
+      ch4_ppm: {
+        min: 3,
+        max: 20,
+        step: 4,
+      },
 
-  //     aqi: {
-  //       min: 20,
-  //       max: 80,
-  //       step: 8,
-  //     },
+      aqi: {
+        min: 20,
+        max: 80,
+        step: 8,
+      },
 
-  //   },
+    },
 
-  //   lastUpdated: "Just now",
-  // },
+    lastUpdated: "Just now",
+  },
 
 
-  // {
-  //   id: "room-002",
+  {
+    id: "room-002",
 
-  //   name: "Bedroom",
+    name: "Bedroom",
 
-  //   type: "Bedroom",
+    type: "Bedroom",
 
-  //   status: "online",
+    status: "online",
 
-  //   deviceId: "SH-ESP32-002",
+    deviceId: "SH-ESP32-002",
 
-  //   image:
-  //     "https://images.unsplash.com/photo-1616594039964-ae9021a400a0?auto=format&fit=crop&w=900&q=80",
+    image:
+      "https://images.unsplash.com/photo-1616594039964-ae9021a400a0?auto=format&fit=crop&w=900&q=80",
 
-  //   sensors: {
+    sensors: {
 
-  //     temperature: 25.8,
+      temperature: 25.8,
 
-  //     humidity: 61,
+      humidity: 61,
 
-  //     h2_ppm: 9,
+      h2_ppm: 9,
 
-  //     co_ppm: 2,
+      co_ppm: 2,
 
-  //     ch4_ppm: 6,
+      ch4_ppm: 6,
 
-  //     aqi: 35,
+      aqi: 35,
 
-  //   },
+    },
 
-  //   sensorRanges: {
+    sensorRanges: {
 
-  //     temperature: {
-  //       min: 19,
-  //       max: 30,
-  //       step: 1.2,
-  //     },
+      temperature: {
+        min: 19,
+        max: 30,
+        step: 1.2,
+      },
 
-  //     humidity: {
-  //       min: 40,
-  //       max: 78,
-  //       step: 5,
-  //     },
+      humidity: {
+        min: 40,
+        max: 78,
+        step: 5,
+      },
 
-  //     h2_ppm: {
-  //       min: 4,
-  //       max: 20,
-  //       step: 3,
-  //     },
+      h2_ppm: {
+        min: 4,
+        max: 20,
+        step: 3,
+      },
 
-  //     co_ppm: {
-  //       min: 1,
-  //       max: 10,
-  //       step: 2,
-  //     },
+      co_ppm: {
+        min: 1,
+        max: 10,
+        step: 2,
+      },
 
-  //     ch4_ppm: {
-  //       min: 2,
-  //       max: 18,
-  //       step: 3,
-  //     },
+      ch4_ppm: {
+        min: 2,
+        max: 18,
+        step: 3,
+      },
 
-  //     aqi: {
-  //       min: 15,
-  //       max: 70,
-  //       step: 7,
-  //     },
+      aqi: {
+        min: 15,
+        max: 70,
+        step: 7,
+      },
 
-  //   },
+    },
 
-  //   lastUpdated: "Just now",
-  // },
+    lastUpdated: "Just now",
+  },
 
 
-  // {
-  //   id: "room-003",
+  {
+    id: "room-003",
 
-  //   name: "Kitchen",
+    name: "Kitchen",
 
-  //   type: "Kitchen",
+    type: "Kitchen",
 
-  //   status: "online",
+    status: "online",
 
-  //   deviceId: "SH-ESP32-003",
+    deviceId: "SH-ESP32-003",
 
-  //   image:
-  //     "https://images.unsplash.com/photo-1556912167-f556f1f39fdf?auto=format&fit=crop&w=900&q=80",
+    image:
+      "https://images.unsplash.com/photo-1556912167-f556f1f39fdf?auto=format&fit=crop&w=900&q=80",
 
-  //   sensors: {
+    sensors: {
 
-  //     temperature: 29.4,
+      temperature: 29.4,
 
-  //     humidity: 55,
+      humidity: 55,
 
-  //     h2_ppm: 14,
+      h2_ppm: 14,
 
-  //     co_ppm: 5,
+      co_ppm: 5,
 
-  //     ch4_ppm: 12,
+      ch4_ppm: 12,
 
-  //     aqi: 58,
+      aqi: 58,
 
-  //   },
+    },
 
-  //   sensorRanges: {
+    sensorRanges: {
 
-  //     temperature: {
-  //       min: 22,
-  //       max: 35,
-  //       step: 1.8,
-  //     },
+      temperature: {
+        min: 22,
+        max: 35,
+        step: 1.8,
+      },
 
-  //     humidity: {
-  //       min: 35,
-  //       max: 75,
-  //       step: 5,
-  //     },
+      humidity: {
+        min: 35,
+        max: 75,
+        step: 5,
+      },
 
-  //     h2_ppm: {
-  //       min: 7,
-  //       max: 30,
-  //       step: 4,
-  //     },
+      h2_ppm: {
+        min: 7,
+        max: 30,
+        step: 4,
+      },
 
-  //     co_ppm: {
-  //       min: 2,
-  //       max: 15,
-  //       step: 2,
-  //     },
+      co_ppm: {
+        min: 2,
+        max: 15,
+        step: 2,
+      },
 
-  //     ch4_ppm: {
-  //       min: 5,
-  //       max: 25,
-  //       step: 4,
-  //     },
+      ch4_ppm: {
+        min: 5,
+        max: 25,
+        step: 4,
+      },
 
-  //     aqi: {
-  //       min: 30,
-  //       max: 100,
-  //       step: 9,
-  //     },
+      aqi: {
+        min: 30,
+        max: 100,
+        step: 9,
+      },
 
-  //   },
+    },
 
-  //   lastUpdated: "Just now",
-  // },
+    lastUpdated: "Just now",
+  },
 
 
-  // {
-  //   id: "room-004",
+  {
+    id: "room-004",
 
-  //   name: "Study Room",
+    name: "Study Room",
 
-  //   type: "Study",
+    type: "Study",
 
-  //   status: "offline",
+    status: "offline",
 
-  //   deviceId: "SH-ESP32-004",
+    deviceId: "SH-ESP32-004",
 
-  //   image:
-  //     "https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=900&q=80",
+    image:
+      "https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=900&q=80",
 
-  //   sensors: {
+    sensors: {
 
-  //     temperature: 24.6,
+      temperature: 24.6,
 
-  //     humidity: 52,
+      humidity: 52,
 
-  //     h2_ppm: 7,
+      h2_ppm: 7,
 
-  //     co_ppm: 1,
+      co_ppm: 1,
 
-  //     ch4_ppm: 5,
+      ch4_ppm: 5,
 
-  //     aqi: 29,
+      aqi: 29,
 
-  //   },
+    },
 
-  //   sensorRanges: {
+    sensorRanges: {
 
-  //     temperature: {
-  //       min: 19,
-  //       max: 29,
-  //       step: 1,
-  //     },
+      temperature: {
+        min: 19,
+        max: 29,
+        step: 1,
+      },
 
-  //     humidity: {
-  //       min: 35,
-  //       max: 70,
-  //       step: 4,
-  //     },
-
-  //     h2_ppm: {
-  //       min: 3,
-  //       max: 15,
-  //       step: 2,
-  //     },
-
-  //     co_ppm: {
-  //       min: 1,
-  //       max: 8,
-  //       step: 1,
-  //     },
-
-  //     ch4_ppm: {
-  //       min: 2,
-  //       max: 12,
-  //       step: 2,
-  //     },
-
-  //     aqi: {
-  //       min: 15,
-  //       max: 55,
-  //       step: 5,
-  //     },
-
-  //   },
-
-  //   lastUpdated: "Just now",
-  // },
-
-  // {
-  //   id: "room-005",
-  //   name: "Dining Room",
-  //   type: "Dining",
-  //   status: "online",
-  //   deviceId: "SH-ESP32-005",
-
-  //   image:
-  //     "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=900&q=80",
-
-  //   sensors: {
-  //     temperature: 26.8,
-  //     humidity: 57,
-  //     h2_ppm: 10,
-  //     co_ppm: 3,
-  //     ch4_ppm: 7,
-  //     aqi: 38,
-  //   },
-
-  //   sensorRanges: {
-  //     temperature: {
-  //       min: 20,
-  //       max: 31,
-  //       step: 1.5,
-  //     },
-  //     humidity: {
-  //       min: 40,
-  //       max: 75,
-  //       step: 5,
-  //     },
-  //     h2_ppm: {
-  //       min: 5,
-  //       max: 25,
-  //       step: 4,
-  //     },
-  //     co_ppm: {
-  //       min: 1,
-  //       max: 12,
-  //       step: 2,
-  //     },
-  //     ch4_ppm: {
-  //       min: 3,
-  //       max: 20,
-  //       step: 4,
-  //     },
-  //     aqi: {
-  //       min: 20,
-  //       max: 75,
-  //       step: 8,
-  //     },
-  //   },
-
-  //   lastUpdated: "Just now",
-  // },
-
-  // {
-  //   id: "room-006",
-  //   name: "Guest Room",
-  //   type: "Guest Room",
-  //   status: "online",
-  //   deviceId: "SH-ESP32-006",
-
-  //   image:
-  //     "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=900&q=80",
-
-  //   sensors: {
-  //     temperature: 24.9,
-  //     humidity: 63,
-  //     h2_ppm: 8,
-  //     co_ppm: 2,
-  //     ch4_ppm: 5,
-  //     aqi: 32,
-  //   },
-
-  //   sensorRanges: {
-  //     temperature: {
-  //       min: 19,
-  //       max: 30,
-  //       step: 1.2,
-  //     },
-  //     humidity: {
-  //       min: 40,
-  //       max: 80,
-  //       step: 5,
-  //     },
-  //     h2_ppm: {
-  //       min: 4,
-  //       max: 20,
-  //       step: 3,
-  //     },
-  //     co_ppm: {
-  //       min: 1,
-  //       max: 10,
-  //       step: 2,
-  //     },
-  //     ch4_ppm: {
-  //       min: 2,
-  //       max: 18,
-  //       step: 3,
-  //     },
-  //     aqi: {
-  //       min: 15,
-  //       max: 70,
-  //       step: 7,
-  //     },
-  //   },
-
-  //   lastUpdated: "Just now",
-  // },
+      humidity: {
+        min: 35,
+        max: 70,
+        step: 4,
+      },
+
+      h2_ppm: {
+        min: 3,
+        max: 15,
+        step: 2,
+      },
+
+      co_ppm: {
+        min: 1,
+        max: 8,
+        step: 1,
+      },
+
+      ch4_ppm: {
+        min: 2,
+        max: 12,
+        step: 2,
+      },
+
+      aqi: {
+        min: 15,
+        max: 55,
+        step: 5,
+      },
+
+    },
+
+    lastUpdated: "Just now",
+  },
+
+  {
+    id: "room-005",
+    name: "Dining Room",
+    type: "Dining",
+    status: "online",
+    deviceId: "SH-ESP32-005",
+
+    image:
+      "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=900&q=80",
+
+    sensors: {
+      temperature: 26.8,
+      humidity: 57,
+      h2_ppm: 10,
+      co_ppm: 3,
+      ch4_ppm: 7,
+      aqi: 38,
+    },
+
+    sensorRanges: {
+      temperature: {
+        min: 20,
+        max: 31,
+        step: 1.5,
+      },
+      humidity: {
+        min: 40,
+        max: 75,
+        step: 5,
+      },
+      h2_ppm: {
+        min: 5,
+        max: 25,
+        step: 4,
+      },
+      co_ppm: {
+        min: 1,
+        max: 12,
+        step: 2,
+      },
+      ch4_ppm: {
+        min: 3,
+        max: 20,
+        step: 4,
+      },
+      aqi: {
+        min: 20,
+        max: 75,
+        step: 8,
+      },
+    },
+
+    lastUpdated: "Just now",
+  },
+
+  {
+    id: "room-006",
+    name: "Guest Room",
+    type: "Guest Room",
+    status: "online",
+    deviceId: "SH-ESP32-006",
+
+    image:
+      "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=900&q=80",
+
+    sensors: {
+      temperature: 24.9,
+      humidity: 63,
+      h2_ppm: 8,
+      co_ppm: 2,
+      ch4_ppm: 5,
+      aqi: 32,
+    },
+
+    sensorRanges: {
+      temperature: {
+        min: 19,
+        max: 30,
+        step: 1.2,
+      },
+      humidity: {
+        min: 40,
+        max: 80,
+        step: 5,
+      },
+      h2_ppm: {
+        min: 4,
+        max: 20,
+        step: 3,
+      },
+      co_ppm: {
+        min: 1,
+        max: 10,
+        step: 2,
+      },
+      ch4_ppm: {
+        min: 2,
+        max: 18,
+        step: 3,
+      },
+      aqi: {
+        min: 15,
+        max: 70,
+        step: 7,
+      },
+    },
+
+    lastUpdated: "Just now",
+  },
 
   // {
   //   id: "room-007",

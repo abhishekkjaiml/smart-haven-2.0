@@ -7,6 +7,7 @@ import {
   Thermometer,
   Wind,
 } from "lucide-react";
+
 import { useDevice } from "../../context/device-context";
 import { useTheme } from "../../context/theme-context";
 import { Link } from "react-router-dom";
@@ -19,6 +20,10 @@ const AllRooms = () => {
 
   return (
     <section>
+      {/* =========================================================
+          ROOMS HEADER
+      ========================================================= */}
+
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
         <div className="flex items-center gap-2">
           <span
@@ -65,6 +70,10 @@ const AllRooms = () => {
         </div>
       </div>
 
+      {/* =========================================================
+          ROOMS GRID
+      ========================================================= */}
+
       {rooms.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
           {rooms.map((room) => (
@@ -74,13 +83,15 @@ const AllRooms = () => {
               className="block no-underline"
             >
               <div
-                className={`group rounded-2xl border overflow-hidden shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 ${
+                className={`group rounded-2xl border overflow-hidden transition-all duration-300 hover:-translate-y-1 ${
                   darkMode
-                    ? "bg-[#111c2e] border-white/10 hover:shadow-black/20"
-                    : "bg-white border-slate-100"
+                    ? "bg-[#111c2e] border-white/10 shadow-[0_8px_30px_rgba(0,0,0,0.15)] hover:border-white/15 hover:shadow-[0_12px_35px_rgba(0,0,0,0.25)]"
+                    : "bg-white border-slate-100 shadow-[0_5px_25px_rgba(36,68,120,0.06)] hover:shadow-[0_15px_35px_rgba(36,68,120,0.11)]"
                 }`}
               >
-                {/* IMAGE */}
+                {/* =====================================================
+                    IMAGE
+                ===================================================== */}
 
                 <div className="relative h-44 overflow-hidden">
                   <img
@@ -89,34 +100,24 @@ const AllRooms = () => {
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
 
-                  <div className="absolute inset-0 bg-linear-to-t from-black/60 via-black/5 to-transparent" />
+                  <div className="absolute inset-0 bg-linear-to-t from-black/65 via-black/10 to-transparent" />
 
                   {/* STATUS */}
 
                   <div className="absolute top-4 left-4">
                     <div
-                      className={`
-                        flex items-center gap-2
-                        px-3 py-1.5
-                        rounded-full
-                        backdrop-blur-md
-                        text-xs font-semibold
-                        ${
-                          room.status === "online"
-                            ? "bg-emerald-500/90 text-white"
-                            : "bg-slate-700/90 text-white"
-                        }
-                      `}
+                      className={`flex items-center gap-2 px-3 py-1.5 rounded-full backdrop-blur-md text-xs font-semibold ${
+                        room.status === "online"
+                          ? "bg-emerald-500/90 text-white"
+                          : "bg-slate-700/90 text-white"
+                      }`}
                     >
                       <span
-                        className={`
-                          w-2 h-2 rounded-full
-                          ${
-                            room.status === "online"
-                              ? "bg-white animate-pulse"
-                              : "bg-slate-300"
-                          }
-                        `}
+                        className={`w-2 h-2 rounded-full ${
+                          room.status === "online"
+                            ? "bg-white animate-pulse"
+                            : "bg-slate-300"
+                        }`}
                       />
 
                       {room.status === "online" ? "Online" : "Offline"}
@@ -133,7 +134,7 @@ const AllRooms = () => {
                     <MoreVertical size={18} />
                   </button>
 
-                  {/* NAME */}
+                  {/* ROOM NAME */}
 
                   <div className="absolute bottom-4 left-4 right-4">
                     <h2 className="m-0 text-xl font-bold text-white">
@@ -146,7 +147,9 @@ const AllRooms = () => {
                   </div>
                 </div>
 
-                {/* CONTENT */}
+                {/* =====================================================
+                    CONTENT
+                ===================================================== */}
 
                 <div className="p-5">
                   {/* DEVICE */}
@@ -191,7 +194,9 @@ const AllRooms = () => {
                     </span>
                   </div>
 
-                  {/* SENSOR GRID */}
+                  {/* =====================================================
+                      SENSOR GRID
+                  ===================================================== */}
 
                   <div className="grid grid-cols-3 gap-2.5">
                     {/* TEMP */}
@@ -202,7 +207,12 @@ const AllRooms = () => {
                       }`}
                     >
                       <div className="flex items-center gap-1.5 mb-2">
-                        <Thermometer size={15} className="text-orange-500" />
+                        <Thermometer
+                          size={15}
+                          className={
+                            darkMode ? "text-orange-400" : "text-orange-500"
+                          }
+                        />
 
                         <span
                           className={`text-[10px] font-semibold ${
@@ -231,7 +241,12 @@ const AllRooms = () => {
                       }`}
                     >
                       <div className="flex items-center gap-1.5 mb-2">
-                        <Droplets size={15} className="text-blue-500" />
+                        <Droplets
+                          size={15}
+                          className={
+                            darkMode ? "text-blue-400" : "text-blue-500"
+                          }
+                        />
 
                         <span
                           className={`text-[10px] font-semibold ${
@@ -259,7 +274,12 @@ const AllRooms = () => {
                       }`}
                     >
                       <div className="flex items-center gap-1.5 mb-2">
-                        <Wind size={15} className="text-emerald-500" />
+                        <Wind
+                          size={15}
+                          className={
+                            darkMode ? "text-emerald-400" : "text-emerald-500"
+                          }
+                        />
 
                         <span
                           className={`text-[10px] font-semibold ${
@@ -280,7 +300,9 @@ const AllRooms = () => {
                     </div>
                   </div>
 
-                  {/* VIEW DETAILS */}
+                  {/* =====================================================
+                      VIEW DETAILS
+                  ===================================================== */}
 
                   <div
                     className={`mt-5 pt-4 border-t flex items-center justify-between ${
@@ -312,6 +334,10 @@ const AllRooms = () => {
           ))}
         </div>
       ) : (
+        /* =========================================================
+           EMPTY STATE
+        ========================================================= */
+
         <div
           className={`w-full min-h-[350px] border rounded-2xl flex items-center justify-center shadow-sm ${
             darkMode
@@ -348,6 +374,10 @@ const AllRooms = () => {
           </div>
         </div>
       )}
+
+      {/* =========================================================
+          LIVE UPDATE INFO
+      ========================================================= */}
 
       {rooms.length > 0 && (
         <div
