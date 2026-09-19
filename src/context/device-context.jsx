@@ -52,7 +52,7 @@ const DeviceProvider = ({ children }) => {
 
       window.removeEventListener("storage", checkClamedDevice);
     };
-  });
+  },[]);
 
   // Claim Device
 

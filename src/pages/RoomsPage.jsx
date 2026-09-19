@@ -1,11 +1,12 @@
-import React from 'react'
 import DeviceClaimRoom from '../components/Rooms/DeviceClaimRoom'
-import { Save } from 'lucide-react'
 import { useTheme } from '../context/theme-context'
+import { useDevice } from '../context/device-context'
+import { Plus, Unplug } from 'lucide-react'
 
 const RoomsPage = () => {
 
   const { darkMode } = useTheme()
+  const { deviceClaimed, resetDevice } = useDevice()
   return (
     <div
       className={`min-h-screen p-6 transition-colors duration-300 ${
@@ -32,6 +33,32 @@ const RoomsPage = () => {
               Monitor the environment of every room in your home.
             </p>
           </div>
+
+          {
+            deviceClaimed && (
+
+              <div className="flex flex-wrap gap-4">
+
+  <button
+    type="button"
+    onClick={resetDevice}
+    className="w-fit h-11 px-5 rounded-xl bg-amber-500 hover:bg-amber-600 text-white text-sm font-semibold flex items-center gap-2 transition-all duration-200 cursor-pointer shadow-sm hover:shadow-md"
+  >
+    <Unplug size={18} />
+    Disconnect
+  </button>
+
+  <button
+    type="button"
+    className="w-fit h-11 px-5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold flex items-center gap-2 transition-all duration-200 cursor-pointer shadow-sm hover:shadow-md"
+  >
+    <Plus size={18} />
+    Add Room
+  </button>
+
+</div>
+            )
+          }
         </div>
               
               {/* Device Claim */}
