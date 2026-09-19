@@ -22,6 +22,7 @@ const DeviceClaimRoom = () => {
     handleClaimDevice,
     DUMMY_DEVICE_ID,
     isDummyUser,
+    resetDevice,
   } = useDevice();
 
   // Check Claimed Device

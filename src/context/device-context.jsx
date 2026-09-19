@@ -111,6 +111,17 @@ const DeviceProvider = ({ children }) => {
     }, 700);
   };
 
+  // Reset Devive
+
+  const resetDevice = () => {
+    localStorage.removeItem(CLAIMED_DEVICE_KEY);
+
+    setClaimedDeviceId('');
+    setDeviceClaimed(false);
+    setDeviceId('');
+    setRooms([]);
+  }
+
   return (
     <DeviceContext.Provider
       value={{
@@ -131,7 +142,8 @@ const DeviceProvider = ({ children }) => {
         handleClaimDevice,
         CLAIMED_DEVICE_KEY, 
         DUMMY_DEVICE_ID,
-        isDummyUser
+        isDummyUser,
+        resetDevice
       }}
     >
       {children}
