@@ -12,6 +12,7 @@ import DashboardPage from "./pages/DashboardPage";
 import useAuth from "./hooks/useAuth";
 import TermsConditionPage from "./pages/TermsConditionPage";
 import PrivacyPolicyPage from "./pages/PrivacyPolicyPage";
+import RoomsDetails from "./pages/RoomsDetails";
 
 const App = () => {
 
@@ -57,6 +58,7 @@ const App = () => {
       
         <Route path="/dashboard" element={<DashboardPage  isDummyUser={isDummyUser} />} />
         <Route path="/rooms" element={<RoomsPage />} />
+        <Route path="/rooms/:id/" element={<RoomsDetails />} />
         <Route path="/settings" element={<SettingsPage />} />
 
         <Route  path="*"  element={
