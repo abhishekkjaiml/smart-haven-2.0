@@ -13,6 +13,7 @@ import useAuth from "./hooks/useAuth";
 import TermsConditionPage from "./pages/TermsConditionPage";
 import PrivacyPolicyPage from "./pages/PrivacyPolicyPage";
 import RoomsDetails from "./pages/RoomsDetails";
+import WeatherPage from "./pages/WeatherPage";
 
 const App = () => {
 
@@ -59,6 +60,7 @@ const App = () => {
         <Route path="/dashboard" element={<DashboardPage  isDummyUser={isDummyUser} />} />
         <Route path="/rooms" element={<RoomsPage />} />
         <Route path="/rooms/:roomId/" element={<RoomsDetails />} />
+        <Route path="/live-weather" element={<WeatherPage />} />
         <Route path="/settings" element={<SettingsPage />} />
 
         <Route  path="*"  element={
