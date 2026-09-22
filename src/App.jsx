@@ -14,6 +14,7 @@ import TermsConditionPage from "./pages/TermsConditionPage";
 import PrivacyPolicyPage from "./pages/PrivacyPolicyPage";
 import RoomsDetails from "./pages/RoomsDetails";
 import WeatherPage from "./pages/WeatherPage";
+import AnalyticsPage from "./pages/AnalyticsPage";
 
 const App = () => {
 
@@ -61,6 +62,7 @@ const App = () => {
         <Route path="/rooms" element={<RoomsPage />} />
         <Route path="/rooms/:roomId/" element={<RoomsDetails />} />
         <Route path="/live-weather" element={<WeatherPage />} />
+        <Route path="/analytics" element={<AnalyticsPage />} />
         <Route path="/settings" element={<SettingsPage />} />
 
         <Route  path="*"  element={
