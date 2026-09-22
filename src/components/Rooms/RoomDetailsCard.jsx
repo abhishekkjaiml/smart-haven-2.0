@@ -36,6 +36,37 @@ const RoomDetailsCard = () => {
     return rooms.find((item) => item.id === String(roomId));
   }, [roomId, rooms]);
 
+  // Room Not Found
+
+  if (!room) {
+    return (
+      <div className="w-full min-h-[500px] flex items-center justify-center">
+        <div className="text-center">
+          <div className="w-16 h-16 mx-auto rounded-2xl bg-slate-100 flex items-center justify-center text-slate-500">
+            <Home size={30} />
+          </div>
+
+          <h1 className="m-0 mt-5 text-xl font-bold text-slate-800">
+            Room Not Found
+          </h1>
+
+          <p className="m-0 mt-2 text-sm text-slate-500">
+            The requested room is not available.
+          </p>
+
+          <button
+            type="button"
+            onClick={() => navigate("/rooms")}
+            className="mt-5 h-11 px-5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold inline-flex items-center gap-2 transition cursor-pointer"
+          >
+            <ArrowLeft size={17} />
+            Back to Rooms
+          </button>
+        </div>
+      </div>
+    );
+  }
+
   const device = useMemo(() => {
     if (!room?.deviceId) {
       return null;
@@ -187,65 +218,75 @@ const RoomDetailsCard = () => {
             className="w-full h-full object-cover"
           />
 
-          <div  className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/10 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/10 to-transparent" />
 
-          <div  className="absolute left-6 bottom-6">
-            <p  className="m-0 text-xs font-medium text-white/70">SmartHaven Room</p>
+          <div className="absolute left-6 bottom-6">
+            <p className="m-0 text-xs font-medium text-white/70">
+              SmartHaven Room
+            </p>
 
-            <h2 className="m-0 mt-1 text-2xl sm:text-3xl font-bold text-white">{room.name}</h2>
+            <h2 className="m-0 mt-1 text-2xl sm:text-3xl font-bold text-white">
+              {room.name}
+            </h2>
           </div>
         </div>
 
         {/* Device Information */}
 
-        <div  className="rounded-[24px] border border-slate-100 bg-white p-6 shadow-sm">
-          <div  className="flex items-center justify-between">
-            <div  className="flex items-center gap-3">
-              <div  className="w-11 h-11 rounded-xl flex items-center justify-center bg-blue-50 text-blue-600">
+        <div className="rounded-[24px] border border-slate-100 bg-white p-6 shadow-sm">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="w-11 h-11 rounded-xl flex items-center justify-center bg-blue-50 text-blue-600">
                 <Smartphone size={21} />
               </div>
 
               <div>
-                <p  className="m-0 text-xs text-slate-400">Connected Device</p>
+                <p className="m-0 text-xs text-slate-400">Connected Device</p>
 
-                <h3 className="m-0 mt-1 text-sm font-bold text-slate-800">{device?.name || "Environment Sensor"}</h3>
+                <h3 className="m-0 mt-1 text-sm font-bold text-slate-800">
+                  {device?.name || "Environment Sensor"}
+                </h3>
               </div>
             </div>
 
             {device?.status === "online" ? (
-              <Wifi size={19}
-              className="text-emerald-500"
-             />
+              <Wifi size={19} className="text-emerald-500" />
             ) : (
-              <WifiOff size={19} 
-              className="text-slate-400"  
-            />
+              <WifiOff size={19} className="text-slate-400" />
             )}
           </div>
 
-          <div  className="mt-6 space-y-4">
-            <div  className="flex items-center justify-between py-3 border-b border-slate-100">
+          <div className="mt-6 space-y-4">
+            <div className="flex items-center justify-between py-3 border-b border-slate-100">
               <span className="text-xs text-slate-400">Device ID</span>
 
-              <span className="text-xs font-bold text-slate-700">{room.deviceId}</span>
+              <span className="text-xs font-bold text-slate-700">
+                {room.deviceId}
+              </span>
             </div>
 
-            <div  className="flex items-center justify-between py-3 border-b border-slate-100">
+            <div className="flex items-center justify-between py-3 border-b border-slate-100">
               <span className="text-xs text-slate-400">Connection</span>
 
-              <span className="text-xs font-semibold text-slate-700">{device?.connection || "Wi-Fi"}</span>
+              <span className="text-xs font-semibold text-slate-700">
+                {device?.connection || "Wi-Fi"}
+              </span>
             </div>
 
-            <div  className="flex items-center justify-between py-3 border-b border-slate-100">
+            <div className="flex items-center justify-between py-3 border-b border-slate-100">
               <span className="text-xs text-slate-400">Firmware</span>
 
-              <span className="text-xs font-semibold text-slate-700">{device?.firmware || "v1.0.4"}</span>
+              <span className="text-xs font-semibold text-slate-700">
+                {device?.firmware || "v1.0.4"}
+              </span>
             </div>
 
-            <div  className="flex items-center justify-between py-3">
+            <div className="flex items-center justify-between py-3">
               <span className="text-xs text-slate-400">Last Updated</span>
 
-              <span className="text-xs font-semibold text-emerald-500">{room.lastUpdated}</span>
+              <span className="text-xs font-semibold text-emerald-500">
+                {room.lastUpdated}
+              </span>
             </div>
           </div>
         </div>
@@ -253,14 +294,18 @@ const RoomDetailsCard = () => {
 
       {/* Sensor Header */}
 
-      <div  className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
         <div>
-          <h2 className="m-0 text-lg font-bold text-slate-800">Room Sensor Data</h2>
+          <h2 className="m-0 text-lg font-bold text-slate-800">
+            Room Sensor Data
+          </h2>
 
-          <p  className="m-0 mt-1 text-xs text-slate-400">Environmental readings from this room</p>
+          <p className="m-0 mt-1 text-xs text-slate-400">
+            Environmental readings from this room
+          </p>
         </div>
 
-        <div  className="flex items-center gap-2 text-xs text-slate-400">
+        <div className="flex items-center gap-2 text-xs text-slate-400">
           <Clock3 size={15} />
           Updated {room.lastUpdated}
         </div>
@@ -268,16 +313,16 @@ const RoomDetailsCard = () => {
 
       {/* Sensor Card */}
 
-      <div  className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 mt-5">
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 mt-5">
         {sensors.map((sensor) => {
           const SensorIcon = sensor.icon;
 
           return (
-            <div 
+            <div
               key={sensor.type}
-              className="relative overflow-hidden h-[155px] rounded-2xl border border-slate-100 bg-white shadow-[0_4px_20px_rgba(36,68,120,0.05)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_25px_rgba(36,68,120,0.08)]"  
+              className="relative overflow-hidden h-[155px] rounded-2xl border border-slate-100 bg-white shadow-[0_4px_20px_rgba(36,68,120,0.05)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_25px_rgba(36,68,120,0.08)]"
             >
-              <div  className="relative z-10 flex items-start gap-6 p-5">
+              <div className="relative z-10 flex items-start gap-6 p-5">
                 <div
                   className={`
                     w-[82px]
@@ -294,15 +339,19 @@ const RoomDetailsCard = () => {
                   <SensorIcon size={42} strokeWidth={2} />
                 </div>
 
-                <div  className="pt-2">
-                  <p  className="m-0 text-sm font-medium text-[#34415f]">{sensor.title}</p>
+                <div className="pt-2">
+                  <p className="m-0 text-sm font-medium text-[#34415f]">
+                    {sensor.title}
+                  </p>
 
-                  <h3 className="m-0 mt-3 text-[25px] leading-7 font-bold tracking-tight text-[#101936]">{sensor.value}</h3>
+                  <h3 className="m-0 mt-3 text-[25px] leading-7 font-bold tracking-tight text-[#101936]">
+                    {sensor.value}
+                  </h3>
                 </div>
               </div>
 
-              <div  className="absolute bottom-0 left-0 right-0 h-[45px]">
-                <svg 
+              <div className="absolute bottom-0 left-0 right-0 h-[45px]">
+                <svg
                   viewBox="0 0 400 60"
                   preserveAspectRatio="none"
                   className={`absolute bottom-0 left-0 w-full h-[55px] ${sensor.waveColor}`}
@@ -343,27 +392,30 @@ const RoomDetailsCard = () => {
 
       {/* Room Info */}
 
-      <div  className="grid grid-cols-1 lg:grid-cols-2 gap-5 mt-6">
-        
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 mt-6">
         {/* Status */}
 
-        <div  className="border border-slate-100 bg-white rounded-2xl p-6 shadow-sm">
-          <div  className="flex items-center gap-3">
-            <div  className="w-11 h-11 rounded-xl flex items-center justify-center bg-emerald-50 text-emerald-600">
+        <div className="border border-slate-100 bg-white rounded-2xl p-6 shadow-sm">
+          <div className="flex items-center gap-3">
+            <div className="w-11 h-11 rounded-xl flex items-center justify-center bg-emerald-50 text-emerald-600">
               <ShieldCheck size={21} />
             </div>
 
             <div>
-              <h3 className="m-0 text-sm font-bold text-slate-800">Room Status</h3>
+              <h3 className="m-0 text-sm font-bold text-slate-800">
+                Room Status
+              </h3>
 
-              <p  className="m-0 mt-1 text-xs text-slate-400">Current environmental condition</p>
+              <p className="m-0 mt-1 text-xs text-slate-400">
+                Current environmental condition
+              </p>
             </div>
           </div>
 
-          <div  className="mt-5 flex items-center justify-between">
+          <div className="mt-5 flex items-center justify-between">
             <span className="text-sm text-slate-500">Overall Safety</span>
 
-            <span 
+            <span
               className={`px-3 py-1.5 rounded-full text-xs font-bold ${
                 aqiStatus === "Good"
                   ? "bg-emerald-50 text-emerald-600"
@@ -371,54 +423,68 @@ const RoomDetailsCard = () => {
                     ? "bg-amber-50 text-amber-600"
                     : "bg-red-50 text-red-600"
               }`}
-            >{aqiStatus}</span>
+            >
+              {aqiStatus}
+            </span>
           </div>
         </div>
 
         {/* Room Information */}
 
-        <div  className="border border-slate-100 bg-white rounded-2xl p-6 shadow-sm">
-          <div  className="flex items-center gap-3">
-            <div  className="w-11 h-11 rounded-xl flex items-center justify-center bg-blue-50 text-blue-600">
+        <div className="border border-slate-100 bg-white rounded-2xl p-6 shadow-sm">
+          <div className="flex items-center gap-3">
+            <div className="w-11 h-11 rounded-xl flex items-center justify-center bg-blue-50 text-blue-600">
               <Home size={21} />
             </div>
 
             <div>
-              <h3 className="m-0 text-sm font-bold text-slate-800">Room Information</h3>
+              <h3 className="m-0 text-sm font-bold text-slate-800">
+                Room Information
+              </h3>
 
-              <p  className="m-0 mt-1 text-xs text-slate-400">Basic room details</p>
+              <p className="m-0 mt-1 text-xs text-slate-400">
+                Basic room details
+              </p>
             </div>
           </div>
 
-          <div  className="mt-5 space-y-3">
-            <div  className="flex items-center justify-between"> 
+          <div className="mt-5 space-y-3">
+            <div className="flex items-center justify-between">
               <span className="text-xs text-slate-400">Room ID</span>
 
-              <span className="text-xs font-semibold text-slate-700">{roomId}</span>
+              <span className="text-xs font-semibold text-slate-700">
+                {roomId}
+              </span>
             </div>
 
-            <div  className="flex items-center justify-between">
+            <div className="flex items-center justify-between">
               <span className="text-xs text-slate-400">Room Type</span>
 
-              <span className="text-xs font-semibold text-slate-700">{room.type}</span>
+              <span className="text-xs font-semibold text-slate-700">
+                {room.type}
+              </span>
             </div>
 
-            <div  className="flex items-center justify-between">
+            <div className="flex items-center justify-between">
               <span className="text-xs text-slate-400">Device</span>
 
-              <span className="text-xs font-semibold text-slate-700">{room.deviceId}</span>
+              <span className="text-xs font-semibold text-slate-700">
+                {room.deviceId}
+              </span>
             </div>
 
-            <div  className="flex items-center justify-between">
+            <div className="flex items-center justify-between">
               <span className="text-xs text-slate-400">Status</span>
 
-              <span 
+              <span
                 className={`text-xs font-semibold ${
                   room.status === "online"
                     ? "text-emerald-500"
                     : "text-slate-500"
                 }`}
-              >{room.status === "online" ? "Online" : "Offline"}</span>
+              >
+                {room.status === "online" ? "Online" : "Offline"}
+              </span>
             </div>
           </div>
         </div>
@@ -427,15 +493,10 @@ const RoomDetailsCard = () => {
       {/* Dummy User Demo */}
 
       {isDummyUser && (
-        <div  className="mt-6 flex items-center justify-center gap-2 text-xs text-slate-400">
-          <ShieldCheck 
-            size={14} 
-            className="text-blue-500"
-          />
+        <div className="mt-6 flex items-center justify-center gap-2 text-xs text-slate-400">
+          <ShieldCheck size={14} className="text-blue-500" />
           Demo device:
-          <span className="font-semibold text-blue-600">
-            {DUMMY_DEVICE_ID}
-          </span>
+          <span className="font-semibold text-blue-600">{DUMMY_DEVICE_ID}</span>
           • Sensor values update automatically
         </div>
       )}
