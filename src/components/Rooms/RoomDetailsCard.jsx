@@ -1,9 +1,11 @@
-import { useEffect, useMemo } from "react";
+import { useMemo } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 import { useDevice } from "../../context/device-context";
+import { useTheme } from "../../context/theme-context";
 
 import { dummyDevices, DUMMY_DEVICE_ID } from "../../db/dummyData";
+
 import {
   ArrowLeft,
   Clock3,
@@ -18,13 +20,13 @@ import {
   WifiOff,
   Wind,
 } from "lucide-react";
-import { div } from "framer-motion/client";
 
 const RoomDetailsCard = () => {
   const { roomId } = useParams();
   const navigate = useNavigate();
 
   const { rooms, deviceClaimed, isDummyUser } = useDevice();
+  const { darkMode } = useTheme();
 
   // find room using url id
 
@@ -42,15 +44,29 @@ const RoomDetailsCard = () => {
     return (
       <div className="w-full min-h-[500px] flex items-center justify-center">
         <div className="text-center">
-          <div className="w-16 h-16 mx-auto rounded-2xl bg-slate-100 flex items-center justify-center text-slate-500">
+          <div
+            className={`w-16 h-16 mx-auto rounded-2xl flex items-center justify-center ${
+              darkMode
+                ? "bg-slate-800 text-slate-400"
+                : "bg-slate-100 text-slate-500"
+            }`}
+          >
             <Home size={30} />
           </div>
 
-          <h1 className="m-0 mt-5 text-xl font-bold text-slate-800">
+          <h1
+            className={`m-0 mt-5 text-xl font-bold ${
+              darkMode ? "text-white" : "text-slate-800"
+            }`}
+          >
             Room Not Found
           </h1>
 
-          <p className="m-0 mt-2 text-sm text-slate-500">
+          <p
+            className={`m-0 mt-2 text-sm ${
+              darkMode ? "text-slate-400" : "text-slate-500"
+            }`}
+          >
             The requested room is not available.
           </p>
 
@@ -92,68 +108,71 @@ const RoomDetailsCard = () => {
       title: "Temperature",
       value: `${room.sensors.temperature.toFixed(1)} °C`,
       icon: Thermometer,
-      iconBg: "bg-rose-50",
-      iconColor: "text-rose-500",
-      waveColor: "text-rose-300",
+      iconBg: darkMode ? "bg-rose-950/40" : "bg-rose-50",
+      iconColor: darkMode ? "text-rose-400" : "text-rose-500",
+      waveColor: darkMode ? "text-rose-400" : "text-rose-300",
     },
-
     {
       type: "humidity",
       title: "Humidity",
       value: `${room.sensors.humidity} %`,
       icon: Droplets,
-      iconBg: "bg-blue-50",
-      iconColor: "text-blue-500",
-      waveColor: "text-blue-300",
+      iconBg: darkMode ? "bg-blue-950/40" : "bg-blue-50",
+      iconColor: darkMode ? "text-blue-400" : "text-blue-500",
+      waveColor: darkMode ? "text-blue-400" : "text-blue-300",
     },
-
     {
       type: "h2",
       title: "H₂ Gas",
       value: `${room.sensors.h2_ppm} ppm`,
       icon: Wind,
-      iconBg: "bg-violet-50",
-      iconColor: "text-violet-500",
-      waveColor: "text-violet-300",
+      iconBg: darkMode ? "bg-violet-950/40" : "bg-violet-50",
+      iconColor: darkMode ? "text-violet-400" : "text-violet-500",
+      waveColor: darkMode ? "text-violet-400" : "text-violet-300",
     },
-
     {
       type: "co",
       title: "CO Gas",
       value: `${room.sensors.co_ppm} ppm`,
       icon: Flame,
-      iconBg: "bg-orange-50",
-      iconColor: "text-orange-500",
-      waveColor: "text-orange-300",
+      iconBg: darkMode ? "bg-orange-950/40" : "bg-orange-50",
+      iconColor: darkMode ? "text-orange-400" : "text-orange-500",
+      waveColor: darkMode ? "text-orange-400" : "text-orange-300",
     },
-
     {
       type: "ch4",
       title: "CH₄ Gas",
       value: `${room.sensors.ch4_ppm} ppm`,
       icon: Leaf,
-      iconBg: "bg-emerald-50",
-      iconColor: "text-emerald-500",
-      waveColor: "text-emerald-300",
+      iconBg: darkMode ? "bg-emerald-950/40" : "bg-emerald-50",
+      iconColor: darkMode ? "text-emerald-400" : "text-emerald-500",
+      waveColor: darkMode ? "text-emerald-400" : "text-emerald-300",
     },
-
     {
       type: "aqi",
       title: "AQI",
       value: `${room.sensors.aqi}`,
       icon: Wind,
-      iconBg: "bg-cyan-50",
-      iconColor: "text-cyan-500",
-      waveColor: "text-cyan-300",
+      iconBg: darkMode ? "bg-cyan-950/40" : "bg-cyan-50",
+      iconColor: darkMode ? "text-cyan-400" : "text-cyan-500",
+      waveColor: darkMode ? "text-cyan-400" : "text-cyan-300",
     },
   ];
 
   return (
-    <div className="w-full">
+    <div
+      className={`w-full transition-colors duration-300 ${
+        darkMode ? "text-slate-100" : "text-slate-800"
+      }`}
+    >
       <button
         type="button"
         onClick={() => navigate("/rooms")}
-        className="mb-5 flex items-center gap-2 text-sm font-semibold text-slate-500 hover:text-blue-600 transition cursor-pointer"
+        className={`mb-5 flex items-center gap-2 text-sm font-semibold transition cursor-pointer ${
+          darkMode
+            ? "text-slate-400 hover:text-blue-400"
+            : "text-slate-500 hover:text-blue-600"
+        }`}
       >
         <ArrowLeft size={18} />
         Back to Rooms
@@ -164,43 +183,55 @@ const RoomDetailsCard = () => {
       <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 mb-6">
         <div>
           <div className="flex items-center gap-3 flex-wrap">
-            <h1 className="m-0 text-[28px] font-bold text-slate-800">
+            <h1
+              className={`m-0 text-[28px] font-bold ${
+                darkMode ? "text-white" : "text-slate-800"
+              }`}
+            >
               {room.name}
             </h1>
 
             <span
-              className={`
-                px-3 py-1 rounded-full
-                text-xs font-semibold
-                flex items-center gap-2
-                ${
-                  room.status === "online"
-                    ? "bg-emerald-50 text-emerald-600"
+              className={`px-3 py-1 rounded-full text-xs font-semibold flex items-center gap-2 ${
+                room.status === "online"
+                  ? darkMode
+                    ? "bg-emerald-950/40 text-emerald-400"
+                    : "bg-emerald-50 text-emerald-600"
+                  : darkMode
+                    ? "bg-slate-800 text-slate-400"
                     : "bg-slate-100 text-slate-500"
-                }
-              `}
+              }`}
             >
               <span
-                className={`
-                  w-2 h-2 rounded-full
-                  ${
-                    room.status === "online"
-                      ? "bg-emerald-500 animate-pulse"
+                className={`w-2 h-2 rounded-full ${
+                  room.status === "online"
+                    ? "bg-emerald-500 animate-pulse"
+                    : darkMode
+                      ? "bg-slate-500"
                       : "bg-slate-400"
-                  }
-                `}
+                }`}
               />
 
               {room.status === "online" ? "Online" : "Offline"}
             </span>
           </div>
 
-          <p className="m-0 mt-1 text-sm text-slate-500">
+          <p
+            className={`m-0 mt-1 text-sm ${
+              darkMode ? "text-slate-400" : "text-slate-500"
+            }`}
+          >
             {room.type} • Live environmental monitoring
           </p>
         </div>
 
-        <div className="flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-semibold w-fit bg-emerald-50 text-emerald-600">
+        <div
+          className={`flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-semibold w-fit ${
+            darkMode
+              ? "bg-emerald-950/40 text-emerald-400"
+              : "bg-emerald-50 text-emerald-600"
+          }`}
+        >
           <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
           Live Data
         </div>
@@ -211,14 +242,18 @@ const RoomDetailsCard = () => {
       <div className="grid grid-cols-1 xl:grid-cols-[1.5fr_1fr] gap-5 mb-6">
         {/* IMAGE */}
 
-        <div className="relative h-[300px] sm:h-[360px] rounded-[24px] overflow-hidden">
+        <div
+          className={`relative h-[300px] sm:h-[360px] rounded-[24px] overflow-hidden border ${
+            darkMode ? "border-slate-800" : "border-slate-200"
+          }`}
+        >
           <img
             src={room.image}
             alt={room.name}
             className="w-full h-full object-cover"
           />
 
-          <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/10 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/15 to-transparent" />
 
           <div className="absolute left-6 bottom-6">
             <p className="m-0 text-xs font-medium text-white/70">
@@ -233,58 +268,138 @@ const RoomDetailsCard = () => {
 
         {/* Device Information */}
 
-        <div className="rounded-[24px] border border-slate-100 bg-white p-6 shadow-sm">
+        <div
+          className={`rounded-[24px] border p-6 shadow-sm transition-colors duration-300 ${
+            darkMode
+              ? "border-slate-800 bg-[#111827]"
+              : "border-slate-100 bg-white"
+          }`}
+        >
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="w-11 h-11 rounded-xl flex items-center justify-center bg-blue-50 text-blue-600">
+              <div
+                className={`w-11 h-11 rounded-xl flex items-center justify-center ${
+                  darkMode
+                    ? "bg-blue-950/50 text-blue-400"
+                    : "bg-blue-50 text-blue-600"
+                }`}
+              >
                 <Smartphone size={21} />
               </div>
 
               <div>
-                <p className="m-0 text-xs text-slate-400">Connected Device</p>
+                <p
+                  className={`m-0 text-xs ${
+                    darkMode ? "text-slate-500" : "text-slate-400"
+                  }`}
+                >
+                  Connected Device
+                </p>
 
-                <h3 className="m-0 mt-1 text-sm font-bold text-slate-800">
+                <h3
+                  className={`m-0 mt-1 text-sm font-bold ${
+                    darkMode ? "text-white" : "text-slate-800"
+                  }`}
+                >
                   {device?.name || "Environment Sensor"}
                 </h3>
               </div>
             </div>
 
             {device?.status === "online" ? (
-              <Wifi size={19} className="text-emerald-500" />
+              <Wifi
+                size={19}
+                className={darkMode ? "text-emerald-400" : "text-emerald-500"}
+              />
             ) : (
-              <WifiOff size={19} className="text-slate-400" />
+              <WifiOff
+                size={19}
+                className={darkMode ? "text-slate-500" : "text-slate-400"}
+              />
             )}
           </div>
 
           <div className="mt-6 space-y-4">
-            <div className="flex items-center justify-between py-3 border-b border-slate-100">
-              <span className="text-xs text-slate-400">Device ID</span>
+            <div
+              className={`flex items-center justify-between py-3 border-b ${
+                darkMode ? "border-slate-800" : "border-slate-100"
+              }`}
+            >
+              <span
+                className={`text-xs ${
+                  darkMode ? "text-slate-500" : "text-slate-400"
+                }`}
+              >
+                Device ID
+              </span>
 
-              <span className="text-xs font-bold text-slate-700">
+              <span
+                className={`text-xs font-bold ${
+                  darkMode ? "text-slate-300" : "text-slate-700"
+                }`}
+              >
                 {room.deviceId}
               </span>
             </div>
 
-            <div className="flex items-center justify-between py-3 border-b border-slate-100">
-              <span className="text-xs text-slate-400">Connection</span>
+            <div
+              className={`flex items-center justify-between py-3 border-b ${
+                darkMode ? "border-slate-800" : "border-slate-100"
+              }`}
+            >
+              <span
+                className={`text-xs ${
+                  darkMode ? "text-slate-500" : "text-slate-400"
+                }`}
+              >
+                Connection
+              </span>
 
-              <span className="text-xs font-semibold text-slate-700">
+              <span
+                className={`text-xs font-semibold ${
+                  darkMode ? "text-slate-300" : "text-slate-700"
+                }`}
+              >
                 {device?.connection || "Wi-Fi"}
               </span>
             </div>
 
-            <div className="flex items-center justify-between py-3 border-b border-slate-100">
-              <span className="text-xs text-slate-400">Firmware</span>
+            <div
+              className={`flex items-center justify-between py-3 border-b ${
+                darkMode ? "border-slate-800" : "border-slate-100"
+              }`}
+            >
+              <span
+                className={`text-xs ${
+                  darkMode ? "text-slate-500" : "text-slate-400"
+                }`}
+              >
+                Firmware
+              </span>
 
-              <span className="text-xs font-semibold text-slate-700">
+              <span
+                className={`text-xs font-semibold ${
+                  darkMode ? "text-slate-300" : "text-slate-700"
+                }`}
+              >
                 {device?.firmware || "v1.0.4"}
               </span>
             </div>
 
             <div className="flex items-center justify-between py-3">
-              <span className="text-xs text-slate-400">Last Updated</span>
+              <span
+                className={`text-xs ${
+                  darkMode ? "text-slate-500" : "text-slate-400"
+                }`}
+              >
+                Last Updated
+              </span>
 
-              <span className="text-xs font-semibold text-emerald-500">
+              <span
+                className={`text-xs font-semibold ${
+                  darkMode ? "text-emerald-400" : "text-emerald-500"
+                }`}
+              >
                 {room.lastUpdated}
               </span>
             </div>
@@ -296,16 +411,28 @@ const RoomDetailsCard = () => {
 
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
         <div>
-          <h2 className="m-0 text-lg font-bold text-slate-800">
+          <h2
+            className={`m-0 text-lg font-bold ${
+              darkMode ? "text-white" : "text-slate-800"
+            }`}
+          >
             Room Sensor Data
           </h2>
 
-          <p className="m-0 mt-1 text-xs text-slate-400">
+          <p
+            className={`m-0 mt-1 text-xs ${
+              darkMode ? "text-slate-500" : "text-slate-400"
+            }`}
+          >
             Environmental readings from this room
           </p>
         </div>
 
-        <div className="flex items-center gap-2 text-xs text-slate-400">
+        <div
+          className={`flex items-center gap-2 text-xs ${
+            darkMode ? "text-slate-500" : "text-slate-400"
+          }`}
+        >
           <Clock3 size={15} />
           Updated {room.lastUpdated}
         </div>
@@ -320,7 +447,11 @@ const RoomDetailsCard = () => {
           return (
             <div
               key={sensor.type}
-              className="relative overflow-hidden h-[155px] rounded-2xl border border-slate-100 bg-white shadow-[0_4px_20px_rgba(36,68,120,0.05)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_25px_rgba(36,68,120,0.08)]"
+              className={`relative overflow-hidden h-[155px] rounded-2xl border shadow-[0_4px_20px_rgba(36,68,120,0.05)] transition-all duration-300 hover:-translate-y-1 ${
+                darkMode
+                  ? "border-slate-800 bg-[#111827] shadow-[0_4px_20px_rgba(0,0,0,0.18)] hover:shadow-[0_8px_25px_rgba(0,0,0,0.3)]"
+                  : "border-slate-100 bg-white hover:shadow-[0_8px_25px_rgba(36,68,120,0.08)]"
+              }`}
             >
               <div className="relative z-10 flex items-start gap-6 p-5">
                 <div
@@ -340,11 +471,19 @@ const RoomDetailsCard = () => {
                 </div>
 
                 <div className="pt-2">
-                  <p className="m-0 text-sm font-medium text-[#34415f]">
+                  <p
+                    className={`m-0 text-sm font-medium ${
+                      darkMode ? "text-slate-400" : "text-[#34415f]"
+                    }`}
+                  >
                     {sensor.title}
                   </p>
 
-                  <h3 className="m-0 mt-3 text-[25px] leading-7 font-bold tracking-tight text-[#101936]">
+                  <h3
+                    className={`m-0 mt-3 text-[25px] leading-7 font-bold tracking-tight ${
+                      darkMode ? "text-white" : "text-[#101936]"
+                    }`}
+                  >
                     {sensor.value}
                   </h3>
                 </div>
@@ -395,33 +534,65 @@ const RoomDetailsCard = () => {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 mt-6">
         {/* Status */}
 
-        <div className="border border-slate-100 bg-white rounded-2xl p-6 shadow-sm">
+        <div
+          className={`border rounded-2xl p-6 shadow-sm ${
+            darkMode
+              ? "border-slate-800 bg-[#111827]"
+              : "border-slate-100 bg-white"
+          }`}
+        >
           <div className="flex items-center gap-3">
-            <div className="w-11 h-11 rounded-xl flex items-center justify-center bg-emerald-50 text-emerald-600">
+            <div
+              className={`w-11 h-11 rounded-xl flex items-center justify-center ${
+                darkMode
+                  ? "bg-emerald-950/50 text-emerald-400"
+                  : "bg-emerald-50 text-emerald-600"
+              }`}
+            >
               <ShieldCheck size={21} />
             </div>
 
             <div>
-              <h3 className="m-0 text-sm font-bold text-slate-800">
+              <h3
+                className={`m-0 text-sm font-bold ${
+                  darkMode ? "text-white" : "text-slate-800"
+                }`}
+              >
                 Room Status
               </h3>
 
-              <p className="m-0 mt-1 text-xs text-slate-400">
+              <p
+                className={`m-0 mt-1 text-xs ${
+                  darkMode ? "text-slate-500" : "text-slate-400"
+                }`}
+              >
                 Current environmental condition
               </p>
             </div>
           </div>
 
           <div className="mt-5 flex items-center justify-between">
-            <span className="text-sm text-slate-500">Overall Safety</span>
+            <span
+              className={`text-sm ${
+                darkMode ? "text-slate-400" : "text-slate-500"
+              }`}
+            >
+              Overall Safety
+            </span>
 
             <span
               className={`px-3 py-1.5 rounded-full text-xs font-bold ${
                 aqiStatus === "Good"
-                  ? "bg-emerald-50 text-emerald-600"
+                  ? darkMode
+                    ? "bg-emerald-950/50 text-emerald-400"
+                    : "bg-emerald-50 text-emerald-600"
                   : aqiStatus === "Moderate"
-                    ? "bg-amber-50 text-amber-600"
-                    : "bg-red-50 text-red-600"
+                    ? darkMode
+                      ? "bg-amber-950/50 text-amber-400"
+                      : "bg-amber-50 text-amber-600"
+                    : darkMode
+                      ? "bg-red-950/50 text-red-400"
+                      : "bg-red-50 text-red-600"
               }`}
             >
               {aqiStatus}
@@ -431,18 +602,38 @@ const RoomDetailsCard = () => {
 
         {/* Room Information */}
 
-        <div className="border border-slate-100 bg-white rounded-2xl p-6 shadow-sm">
+        <div
+          className={`border rounded-2xl p-6 shadow-sm ${
+            darkMode
+              ? "border-slate-800 bg-[#111827]"
+              : "border-slate-100 bg-white"
+          }`}
+        >
           <div className="flex items-center gap-3">
-            <div className="w-11 h-11 rounded-xl flex items-center justify-center bg-blue-50 text-blue-600">
+            <div
+              className={`w-11 h-11 rounded-xl flex items-center justify-center ${
+                darkMode
+                  ? "bg-blue-950/50 text-blue-400"
+                  : "bg-blue-50 text-blue-600"
+              }`}
+            >
               <Home size={21} />
             </div>
 
             <div>
-              <h3 className="m-0 text-sm font-bold text-slate-800">
+              <h3
+                className={`m-0 text-sm font-bold ${
+                  darkMode ? "text-white" : "text-slate-800"
+                }`}
+              >
                 Room Information
               </h3>
 
-              <p className="m-0 mt-1 text-xs text-slate-400">
+              <p
+                className={`m-0 mt-1 text-xs ${
+                  darkMode ? "text-slate-500" : "text-slate-400"
+                }`}
+              >
                 Basic room details
               </p>
             </div>
@@ -450,37 +641,77 @@ const RoomDetailsCard = () => {
 
           <div className="mt-5 space-y-3">
             <div className="flex items-center justify-between">
-              <span className="text-xs text-slate-400">Room ID</span>
+              <span
+                className={`text-xs ${
+                  darkMode ? "text-slate-500" : "text-slate-400"
+                }`}
+              >
+                Room ID
+              </span>
 
-              <span className="text-xs font-semibold text-slate-700">
+              <span
+                className={`text-xs font-semibold ${
+                  darkMode ? "text-slate-300" : "text-slate-700"
+                }`}
+              >
                 {roomId}
               </span>
             </div>
 
             <div className="flex items-center justify-between">
-              <span className="text-xs text-slate-400">Room Type</span>
+              <span
+                className={`text-xs ${
+                  darkMode ? "text-slate-500" : "text-slate-400"
+                }`}
+              >
+                Room Type
+              </span>
 
-              <span className="text-xs font-semibold text-slate-700">
+              <span
+                className={`text-xs font-semibold ${
+                  darkMode ? "text-slate-300" : "text-slate-700"
+                }`}
+              >
                 {room.type}
               </span>
             </div>
 
             <div className="flex items-center justify-between">
-              <span className="text-xs text-slate-400">Device</span>
+              <span
+                className={`text-xs ${
+                  darkMode ? "text-slate-500" : "text-slate-400"
+                }`}
+              >
+                Device
+              </span>
 
-              <span className="text-xs font-semibold text-slate-700">
+              <span
+                className={`text-xs font-semibold ${
+                  darkMode ? "text-slate-300" : "text-slate-700"
+                }`}
+              >
                 {room.deviceId}
               </span>
             </div>
 
             <div className="flex items-center justify-between">
-              <span className="text-xs text-slate-400">Status</span>
+              <span
+                className={`text-xs ${
+                  darkMode ? "text-slate-500" : "text-slate-400"
+                }`}
+              >
+                Status
+              </span>
 
               <span
                 className={`text-xs font-semibold ${
                   room.status === "online"
-                    ? "text-emerald-500"
-                    : "text-slate-500"
+                    ? darkMode
+                      ? "text-emerald-400"
+                      : "text-emerald-500"
+                    : darkMode
+                      ? "text-slate-400"
+                      : "text-slate-500"
                 }`}
               >
                 {room.status === "online" ? "Online" : "Offline"}
@@ -493,10 +724,23 @@ const RoomDetailsCard = () => {
       {/* Dummy User Demo */}
 
       {isDummyUser && (
-        <div className="mt-6 flex items-center justify-center gap-2 text-xs text-slate-400">
-          <ShieldCheck size={14} className="text-blue-500" />
+        <div
+          className={`mt-6 flex items-center justify-center gap-2 text-xs ${
+            darkMode ? "text-slate-500" : "text-slate-400"
+          }`}
+        >
+          <ShieldCheck
+            size={14}
+            className={darkMode ? "text-blue-400" : "text-blue-500"}
+          />
           Demo device:
-          <span className="font-semibold text-blue-600">{DUMMY_DEVICE_ID}</span>
+          <span
+            className={`font-semibold ${
+              darkMode ? "text-blue-400" : "text-blue-600"
+            }`}
+          >
+            {DUMMY_DEVICE_ID}
+          </span>
           • Sensor values update automatically
         </div>
       )}

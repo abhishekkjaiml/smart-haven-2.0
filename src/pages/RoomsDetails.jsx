@@ -1,12 +1,19 @@
-import React from 'react'
-import RoomDetailsCard from '../components/Rooms/RoomDetailsCard'
+import { useTheme } from "../context/theme-context";
+
+import RoomDetailsCard from "../components/Rooms/RoomDetailsCard";
 
 const RoomsDetails = () => {
-  return (
-    <div    className='min-h-screen p-6 transition-colors duration-300'>
-        <RoomDetailsCard/>
-    </div>
-  )
-}
+  const { darkMode } = useTheme();
 
-export default RoomsDetails
+  return (
+    <div
+      className={`min-h-screen w-full p-4 sm:p-5 lg:p-6 transition-colors duration-300 ${
+        darkMode ? "bg-[#0B1220] text-slate-100" : "bg-slate-50 text-slate-800"
+      }`}
+    >
+      <RoomDetailsCard />
+    </div>
+  );
+};
+
+export default RoomsDetails;
