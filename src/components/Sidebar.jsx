@@ -6,6 +6,9 @@ import {
   Menu,
   X,
   Home,
+  CloudSun,
+  Cloud,
+  ChartNoAxesCombined,
 } from "lucide-react";
 
 import { NavLink } from "react-router-dom";
@@ -28,6 +31,16 @@ const Sidebar = ({ isOpen, onToggle, isMobile }) => {
       name: "Rooms",
       path: "/rooms",
       icon: Grid2X2,
+    },
+    {
+      name: "Weather",
+      path: "/live-weather",
+      icon: Cloud,
+    },
+    {
+      name: "Analytics",
+      path: "/analytics",
+      icon: ChartNoAxesCombined,
     },
     {
       name: "Settings",

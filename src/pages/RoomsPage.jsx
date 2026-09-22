@@ -4,11 +4,14 @@ import SearchRooms from "../components/Rooms/SearchRooms";
 import { useTheme } from "../context/theme-context";
 import { useDevice } from "../context/device-context";
 
+
 import { Plus, Unplug } from "lucide-react";
 
 const RoomsPage = () => {
+
   const { darkMode } = useTheme();
   const { deviceClaimed, resetDevice } = useDevice();
+
 
   return (
     <div

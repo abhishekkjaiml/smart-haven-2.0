@@ -58,7 +58,7 @@ const App = () => {
       
         <Route path="/dashboard" element={<DashboardPage  isDummyUser={isDummyUser} />} />
         <Route path="/rooms" element={<RoomsPage />} />
-        <Route path="/rooms/:id/" element={<RoomsDetails />} />
+        <Route path="/rooms/:roomId/" element={<RoomsDetails />} />
         <Route path="/settings" element={<SettingsPage />} />
 
         <Route  path="*"  element={
